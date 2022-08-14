@@ -52,5 +52,3 @@ Développer le frontend avec Angular 10
  - Faire fonctionner l'application en dehors des IDE
  
  
- 
- 
