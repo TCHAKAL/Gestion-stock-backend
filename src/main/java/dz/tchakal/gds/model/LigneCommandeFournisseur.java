@@ -2,10 +2,8 @@ package dz.tchakal.gds.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -15,6 +13,9 @@ import javax.persistence.Table;
 @Table(name = "ligneç_commande_fournisseur")
 @Entity
 public class LigneCommandeFournisseur extends AbstractEntity{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "id_article")
@@ -22,4 +23,10 @@ public class LigneCommandeFournisseur extends AbstractEntity{
     @ManyToOne
     @JoinColumn(name = "commande_fournisseur")
     private CommandeFournisseur commandeFournisseur;
+
+    @Column(name = "quantite")
+    private BigDecimal quantite;
+
+    @Column(name = "prix_unitaire")
+    private BigDecimal prixUnitaire;
 }

@@ -2,8 +2,7 @@ package dz.tchakal.gds.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Builder
@@ -13,6 +12,15 @@ import javax.persistence.Table;
 @Table(name = "role")
 @Entity
 public class Role extends AbstractEntity{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
-    private String nom;
+    @Column(name = "role_name")
+    private String roleName;
+
+    @ManyToOne
+    @JoinColumn(name = "utilisateur")
+    private Utilisateur utilisateur;
+
 }

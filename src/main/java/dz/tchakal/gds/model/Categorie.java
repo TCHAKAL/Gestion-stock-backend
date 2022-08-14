@@ -2,10 +2,7 @@ package dz.tchakal.gds.model;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Data
@@ -16,6 +13,9 @@ import java.util.List;
 @Table(name = "categorie")
 @Entity
 public class Categorie extends AbstractEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
     @Column(name = "code", nullable = false)
     private String code;

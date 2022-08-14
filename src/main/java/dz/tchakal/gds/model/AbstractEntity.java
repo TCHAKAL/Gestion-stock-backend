@@ -1,7 +1,10 @@
 package dz.tchakal.gds.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -16,9 +19,6 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class) //pour assiger des valeur pour CreatedDate et LastModifiedDate
 public class AbstractEntity implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
 
     @CreatedDate
     @Column(name = "creation_date", nullable = false)

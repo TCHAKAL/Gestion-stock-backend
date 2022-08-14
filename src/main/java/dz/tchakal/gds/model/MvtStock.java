@@ -2,9 +2,9 @@ package dz.tchakal.gds.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.Instant;
 
 @Data
 @Builder
@@ -14,6 +14,21 @@ import java.math.BigDecimal;
 @Table(name = "mvt_stock")
 @Entity
 public class MvtStock extends AbstractEntity{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
-    BigDecimal quantite;
+    @ManyToOne
+    @JoinColumn(name = "id_article")
+    private Article article;
+
+    @Column(name = "quantite")
+    private BigDecimal quantite;
+
+    @Column(name = "date_mvt")
+    private Instant dateMvt;
+
+
+    @Column(name = "type_mvt")
+    private TypeMvt typeMvt;
 }

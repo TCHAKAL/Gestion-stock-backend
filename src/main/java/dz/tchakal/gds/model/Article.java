@@ -14,6 +14,9 @@ import java.math.BigDecimal;
 @Table(name = "article")
 @Entity
 public class Article extends AbstractEntity{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
     @Column(name="code",nullable = false)
     private String code;

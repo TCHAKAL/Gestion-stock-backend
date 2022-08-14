@@ -14,6 +14,9 @@ import java.util.List;
 @Table(name = "commande_client")
 @Entity
 public class CommandeClient extends AbstractEntity{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
     @Column(name="code")
     private String code;

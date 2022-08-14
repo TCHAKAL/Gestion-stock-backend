@@ -2,9 +2,7 @@ package dz.tchakal.gds.model;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Builder
@@ -13,6 +11,10 @@ import javax.persistence.Table;
 @EqualsAndHashCode
 @Embeddable
 public class Adresse {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
 
     @Column(name = "adresse1")
     private String adresse1;

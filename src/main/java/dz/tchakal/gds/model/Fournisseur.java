@@ -14,6 +14,9 @@ import java.util.List;
 @Entity
 public class Fournisseur extends AbstractEntity{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
     @Column(name = "nom", nullable = false)
     private String nom;

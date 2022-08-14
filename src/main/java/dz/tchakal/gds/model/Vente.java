@@ -2,9 +2,8 @@ package dz.tchakal.gds.model;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.Instant;
 
 @Data
 @Builder
@@ -14,7 +13,14 @@ import javax.persistence.Table;
 @Table(name = "vente")
 @Entity
 public class Vente extends AbstractEntity{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
     @Column(name = "code")
     private  String code;
+    @Column(name = "date_vente")
+    private Instant dateVente;
+    @Column(name = "commentaire")
+    private  String commentaire;
 }
