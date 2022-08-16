@@ -1,8 +1,7 @@
 package dz.tchakal.gds.validator;
 
-import dz.tchakal.gds.dto.LigneVenteDto;
 import dz.tchakal.gds.dto.MvtStockDto;
-import dz.tchakal.gds.utils.StaticUtil;
+import dz.tchakal.gds.util.StaticUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

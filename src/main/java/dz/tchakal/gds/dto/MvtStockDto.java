@@ -23,6 +23,8 @@ public class MvtStockDto {
 
     private TypeMvt typeMvt;
 
+    private Integer entreprise;
+
     public static MvtStockDto fromEntity(MvtStock mvtStock) {
         if (mvtStock == null) {
             //TODO throw an exception
@@ -34,6 +36,7 @@ public class MvtStockDto {
                 .quantite(mvtStock.getQuantite())
                 .dateMvt(mvtStock.getDateMvt())
                 .typeMvt(mvtStock.getTypeMvt())
+                .entreprise(mvtStock.getEntreprise())
                 .build();
     }
 
@@ -48,6 +51,7 @@ public class MvtStockDto {
                 .quantite(mvtStockDto.getQuantite())
                 .dateMvt(mvtStockDto.getDateMvt())
                 .typeMvt(mvtStockDto.getTypeMvt())
+                .entreprise(mvtStockDto.getEntreprise())
                 .build();
     }
 

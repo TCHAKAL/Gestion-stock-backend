@@ -15,6 +15,7 @@ import java.util.List;
 public class ClientDto{
 
     private Integer id;
+    private Integer entreprise;
 
     private String nom;
 
@@ -44,6 +45,7 @@ public class ClientDto{
                 .telephone(client.getTelephone())
                 .adresse(AdresseDto.fromEntity(client.getAdresse()))
                 .photo(client.getPhoto())
+                .entreprise(client.getEntreprise())
                 .build();
     }
     public static Client toEntity(ClientDto clientDto) {
@@ -59,6 +61,7 @@ public class ClientDto{
                 .telephone(clientDto.getTelephone())
                 .adresse(AdresseDto.toEntity(clientDto.getAdresse()))
                 .photo(clientDto.getPhoto())
+                .entreprise(clientDto.getEntreprise())
                 .build();
     }
 }

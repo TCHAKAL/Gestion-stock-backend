@@ -11,9 +11,9 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @Embeddable
 public class Adresse {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    private Integer id;
 
 
     @Column(name = "adresse1")

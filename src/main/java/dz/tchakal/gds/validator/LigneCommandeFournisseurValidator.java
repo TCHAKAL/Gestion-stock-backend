@@ -1,14 +1,13 @@
 package dz.tchakal.gds.validator;
 
-import dz.tchakal.gds.dto.LigneCommandeClientDto;
 import dz.tchakal.gds.dto.LigneCommandeFournisseurDto;
-import dz.tchakal.gds.utils.StaticUtil;
+import dz.tchakal.gds.util.StaticUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LigneComandeFournisseurValidator {
+public class LigneCommandeFournisseurValidator {
 
     public static List<String> validate(LigneCommandeFournisseurDto commandeFournisseurDto){
         List<String> errors = new ArrayList<>();

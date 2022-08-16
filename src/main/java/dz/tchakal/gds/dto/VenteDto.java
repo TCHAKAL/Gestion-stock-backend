@@ -2,6 +2,7 @@ package dz.tchakal.gds.dto;
 
 import dz.tchakal.gds.model.AbstractEntity;
 import dz.tchakal.gds.model.Client;
+import dz.tchakal.gds.model.LigneVente;
 import dz.tchakal.gds.model.Vente;
 import lombok.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @Builder
@@ -22,6 +24,10 @@ public class VenteDto {
 
     private  String commentaire;
 
+    private Integer entreprise;
+
+    private List<LigneVenteDto> ligneVente;
+
 
     public static VenteDto fromEntity(Vente vente) {
         if (vente == null) {
@@ -33,6 +39,7 @@ public class VenteDto {
                 .code(vente.getCode())
                 .dateVente(vente.getDateVente())
                 .commentaire(vente.getCommentaire())
+                .entreprise(vente.getEntreprise())
                 .build();
     }
     public static Vente toEntity(VenteDto venteDto) {
@@ -45,6 +52,7 @@ public class VenteDto {
                 .code(venteDto.getCode())
                 .dateVente(venteDto.getDateVente())
                 .commentaire(venteDto.getCommentaire())
+                .entreprise(venteDto.getEntreprise())
                 .build();
     }
 

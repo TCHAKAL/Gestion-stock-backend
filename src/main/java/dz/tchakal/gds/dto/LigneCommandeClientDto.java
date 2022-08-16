@@ -27,6 +27,7 @@ public class LigneCommandeClientDto {
     private BigDecimal prixUnitaire;
 
 
+
     public static LigneCommandeClientDto fromEntity(LigneCommandeClient ligneCommandeClient) {
         if (ligneCommandeClient == null) {
             //TODO throw an exception

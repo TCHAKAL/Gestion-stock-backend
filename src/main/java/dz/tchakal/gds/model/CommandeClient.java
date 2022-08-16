@@ -30,4 +30,6 @@ public class CommandeClient extends AbstractEntity{
     @OneToMany(mappedBy = "commandeClient")
     private List<LigneCommandeClient> ligneCommandeClients;
 
+    @Column(name = "entreprise")
+    private Integer entreprise;
 }

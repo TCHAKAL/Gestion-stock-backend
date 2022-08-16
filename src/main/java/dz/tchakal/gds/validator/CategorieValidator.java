@@ -1,8 +1,7 @@
 package dz.tchakal.gds.validator;
 
 import dz.tchakal.gds.dto.CategorieDto;
-import dz.tchakal.gds.model.Categorie;
-import dz.tchakal.gds.utils.StaticUtil;
+import dz.tchakal.gds.util.StaticUtil;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;

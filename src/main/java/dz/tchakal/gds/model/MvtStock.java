@@ -28,7 +28,10 @@ public class MvtStock extends AbstractEntity{
     @Column(name = "date_mvt")
     private Instant dateMvt;
 
-
     @Column(name = "type_mvt")
     private TypeMvt typeMvt;
+
+    @Column(name = "entreprise")
+    private Integer entreprise;
+
 }

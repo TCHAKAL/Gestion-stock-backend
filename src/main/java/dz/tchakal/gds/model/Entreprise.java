@@ -3,6 +3,7 @@ package dz.tchakal.gds.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Builder
@@ -18,4 +19,7 @@ public class Entreprise extends AbstractEntity{
 
     @Column(name = "nom")
     private String nom;
+
+    @OneToMany(mappedBy = "entreprise")
+    private List<Utilisateur> utilisateurs;
 }

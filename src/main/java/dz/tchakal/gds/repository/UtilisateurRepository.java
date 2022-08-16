@@ -4,7 +4,12 @@ import dz.tchakal.gds.model.Article;
 import dz.tchakal.gds.model.Utilisateur;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UtilisateurRepository extends JpaRepository<Integer, Utilisateur> {
+import java.util.Optional;
+
+public interface UtilisateurRepository extends JpaRepository<Utilisateur,Integer> {
 
 
+    Optional<Utilisateur> findByEmail(String email);
+
+    Optional<Utilisateur> findByEmailAndMotPasse(String email,String motPasse);
 }

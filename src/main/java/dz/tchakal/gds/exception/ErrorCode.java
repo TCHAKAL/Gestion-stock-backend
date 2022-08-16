@@ -5,12 +5,15 @@ public enum ErrorCode {
 
     //Gestion des articles
     ARTICLE_NOT_FOUND(1000),
+    ARTICLE_NOT_VALIDE(1001),
     //Gestion des catégories
     CATEGORIE_NOT_FOUND(2000),
-
+    CATEGORIE_NOT_VALIDE(2001),
     //Gestion des Clients
     CLIENT_NOT_FOUND(3000),
+    CLIENT_NOT_VALIDE(3001),
     COMMANDE_CLIENT_NOT_FOUND(4000),
+    COMMANDE_CLIENT_NOT_VALIDE(4001),
     LIGNE_COMMANDE_CLIENT_NOT_FOUND(5000),
 
     //Gestion des fournisseur
@@ -20,6 +23,7 @@ public enum ErrorCode {
 
     //Gestion des ventes
     VENTE_NOT_FOUND(9000),
+    VENTE_NOT_VALIDE(9001),
     LIGNE_VENTE_NOT_FOUND(10000),
 
     //Gestion des mouvements

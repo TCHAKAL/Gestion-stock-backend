@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface ArticleRepository extends JpaRepository<Integer, Article> {
+public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
     Article findByCode(String code);
 

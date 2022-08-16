@@ -19,6 +19,8 @@ public class CategorieDto {
 
     private String designation;
 
+    private Integer entreprise;
+
     @JsonIgnore
     private List<ArticleDto> articles;
 
@@ -31,6 +33,7 @@ public class CategorieDto {
                 .id(categorie.getId())
                 .code(categorie.getCode())
                 .designation(categorie.getDesignation())
+                .entreprise(categorie.getEntreprise())
                 .build();
     }
     public static Categorie toEntity(CategorieDto categorieDto) {
@@ -42,6 +45,7 @@ public class CategorieDto {
                 .id(categorieDto.getId())
                 .code(categorieDto.getCode())
                 .designation(categorieDto.getDesignation())
+                .entreprise(categorieDto.getEntreprise())
                 .build();
     }
 }

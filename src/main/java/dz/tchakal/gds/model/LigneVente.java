@@ -17,9 +17,17 @@ public class LigneVente extends AbstractEntity{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "id_vente")
+    @ManyToOne
+    @JoinColumn(name = "vente")
     private Vente vente;
+
+    @ManyToOne
+    @JoinColumn(name = "article")
+    private Article article;
 
     @Column(name = "quantite")
     private BigDecimal quantite;
+
+    @Column(name = "entreprise")
+    private Integer entreprise;
 }

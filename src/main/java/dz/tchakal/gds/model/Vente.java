@@ -1,9 +1,11 @@
 package dz.tchakal.gds.model;
 
+import dz.tchakal.gds.dto.LigneVenteDto;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @Builder
@@ -19,8 +21,17 @@ public class Vente extends AbstractEntity{
 
     @Column(name = "code")
     private  String code;
+
     @Column(name = "date_vente")
     private Instant dateVente;
+
     @Column(name = "commentaire")
     private  String commentaire;
+
+    @Column(name = "entreprise")
+    private Integer entreprise;
+
+    @OneToMany(mappedBy = "vente")
+    private List<LigneVente> ligneVente;
+
 }

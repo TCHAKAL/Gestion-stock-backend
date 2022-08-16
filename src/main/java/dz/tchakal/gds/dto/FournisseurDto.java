@@ -27,7 +27,8 @@ public class FournisseurDto{
 
     private String photo;
 
-    @JsonIgnore
+    private Integer entreprise;
+
     private List<CommandeFournisseurDto> commandeFournisseurs;
 
 
@@ -44,6 +45,7 @@ public class FournisseurDto{
                 .telephone(fournisseur.getTelephone())
                 .adresse(AdresseDto.fromEntity(fournisseur.getAdresse()))
                 .photo(fournisseur.getPhoto())
+                .entreprise(fournisseur.getEntreprise())
                 .build();
     }
     public static Fournisseur toEntity(FournisseurDto fournisseurDto) {
@@ -59,6 +61,7 @@ public class FournisseurDto{
                 .telephone(fournisseurDto.getTelephone())
                 .adresse(AdresseDto.toEntity(fournisseurDto.getAdresse()))
                 .photo(fournisseurDto.getPhoto())
+                .entreprise(fournisseurDto.getEntreprise())
                 .build();
     }
 }

@@ -1,13 +1,13 @@
 package dz.tchakal.gds.validator;
 
 import dz.tchakal.gds.dto.CommandeFournisseurDto;
-import dz.tchakal.gds.utils.StaticUtil;
+import dz.tchakal.gds.util.StaticUtil;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ComandeFournisseurValidator {
+public class CommandeFournisseurValidator {
 
     public static List<String> validate(CommandeFournisseurDto commandeFournisseurDto){
         List<String> errors = new ArrayList<>();

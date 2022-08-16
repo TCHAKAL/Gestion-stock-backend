@@ -1,6 +1,7 @@
 package dz.tchakal.gds.dto;
 
 import dz.tchakal.gds.model.AbstractEntity;
+import dz.tchakal.gds.model.Article;
 import dz.tchakal.gds.model.Client;
 import dz.tchakal.gds.model.LigneVente;
 import lombok.*;
@@ -20,6 +21,10 @@ public class LigneVenteDto {
 
     private BigDecimal quantite;
 
+    private ArticleDto article;
+
+
+
 
     public static LigneVenteDto fromEntity(LigneVente ligneVente) {
         if (ligneVente == null) {
@@ -29,6 +34,7 @@ public class LigneVenteDto {
         return LigneVenteDto.builder()
                 .id(ligneVente.getId())
                 .vente(VenteDto.fromEntity(ligneVente.getVente()))
+                .article(ArticleDto.fromEntity(ligneVente.getArticle()))
                 .quantite(ligneVente.getQuantite())
                 .build();
     }
@@ -42,6 +48,7 @@ public class LigneVenteDto {
                 .id(ligneVenteDto.getId())
                 .vente(VenteDto.toEntity(ligneVenteDto.getVente()))
                 .quantite(ligneVenteDto.getQuantite())
+                .article(ArticleDto.toEntity(ligneVenteDto.getArticle()))
                 .build();
     }
 }
