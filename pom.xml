@@ -34,11 +34,18 @@
             <artifactId>flickr4java</artifactId>
             <version>3.0.4</version>
         </dependency>
+
         <!--SWAGGER-->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
             <version>3.0.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.kongchen/swagger-maven-plugin -->
+        <dependency>
+            <groupId>com.github.kongchen</groupId>
+            <artifactId>swagger-maven-plugin</artifactId>
+            <version>3.1.8</version>
         </dependency>
 
         <dependency>
@@ -74,7 +81,7 @@
             <plugin>
                 <groupId>com.github.kongchen</groupId>
                 <artifactId>swagger-maven-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.1.8</version>
                 <configuration>
                     <apiSources>
                         <apiSource>
@@ -90,13 +97,12 @@
                                 <contact>
                                     <name>TCHAKAL Ahmed</name>
                                     <email>ahmed.tchakal@gmail.com</email>
-                                    <linkedIn>TCHAKAL Ahmed</linkedIn>
                                     <url>https://www.linkedin.com/in/ahmed-tchakal-89aa0b128/</url>
                                 </contact>
                             </info>
                             <outputPath>${project.build.directory}</outputPath>
                             <outputFormats>json</outputFormats>
-                            <swaggerApiReader>com.github.kongchen.swagger.reader.SpringMvcApiReader</swaggerApiReader>
+<!--                            <swaggerApiReader>com.github.kongchen.swagger.reader.SpringMvcApiReader</swaggerApiReader>-->
                             <swaggerDirectory>${project.build.directory}</swaggerDirectory>
                         </apiSource>
                     </apiSources>
