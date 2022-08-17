@@ -97,7 +97,7 @@
                                 <contact>
                                     <name>TCHAKAL Ahmed</name>
                                     <email>ahmed.tchakal@gmail.com</email>
-                                    <url>https://www.linkedin.com/in/ahmed-tchakal-89aa0b128/</url>
+                                    <url>https://www.linkedin.com/in/ahmed-tchakal/</url>
                                 </contact>
                             </info>
                             <outputPath>${project.build.directory}</outputPath>

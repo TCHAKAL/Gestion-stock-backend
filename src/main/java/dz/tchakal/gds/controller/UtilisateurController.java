@@ -5,6 +5,7 @@ import dz.tchakal.gds.dto.UtilisateurDto;
 import dz.tchakal.gds.repository.UtilisateurRepository;
 import dz.tchakal.gds.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 public class UtilisateurController implements UtilisateurApi {
 
+    @Qualifier("UtilisateurImplimentation")
     private UtilisateurService utilisateurService;
 
     @Autowired

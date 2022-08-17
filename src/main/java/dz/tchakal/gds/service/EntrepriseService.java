@@ -5,7 +5,7 @@ import dz.tchakal.gds.dto.EntrepriseDto;
 import java.util.List;
 
 public interface EntrepriseService {
-    EntrepriseDto save(EntrepriseDto EntrepriseDto);
+    EntrepriseDto save(EntrepriseDto entrepriseDto);
 
     EntrepriseDto findById(Integer id);
 

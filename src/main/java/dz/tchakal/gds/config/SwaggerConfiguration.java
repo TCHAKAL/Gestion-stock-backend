@@ -1,6 +1,6 @@
 package dz.tchakal.gds.config;
 
-import dz.tchakal.gds.util.Constant;
+import dz.tchakal.gds.util.StaticRoot;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -25,7 +25,7 @@ public class SwaggerConfiguration {
                 .groupName("Rest API V1")
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("dz.tchakal.gds"))
-                .paths(PathSelectors.ant(Constant.APP_ROOT+"/.*"))
+                .paths(PathSelectors.ant(StaticRoot.APP_ROOT+"/.*"))
                 .build();
     }
 }
