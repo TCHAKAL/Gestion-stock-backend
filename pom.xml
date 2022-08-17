@@ -71,10 +71,11 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <!--SWAGGER-->
+
             <plugin>
                 <groupId>com.github.kongchen</groupId>
                 <artifactId>swagger-maven-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.0.0</version>
                 <configuration>
                     <apiSources>
                         <apiSource>
@@ -82,33 +83,105 @@
                             <locations>
                                 <location>dz.tchakal.gds.controller</location>
                             </locations>
-                            <basePath>http://localhost:9090</basePath>
+                            <schemes>
+                                <scheme>http</scheme>
+                                <scheme>https</scheme>
+                            </schemes>
+                            <host>http://localhost:9090</host>
+                            <basePath>/api</basePath>
                             <info>
                                 <title>Swagger Api documentation de Stock It Easy</title>
-                                <version>${project.version}</version>
-                                <description>Swagger documentation</description>
+                                <version>v1</version>
+                                <!-- use markdown here because I'm using markdown for output,
+                                if you need to use html or other markup language, you need to use your target language,
+                                 and note escape your description for xml -->
+                                <description>
+                                    Swagger Api documentation de Stock It Easy
+                                </description>
+                                <termsOfService>
+                                    http://www.github.com/kongchen/swagger-maven-plugin
+                                </termsOfService>
                                 <contact>
-                                    <name>TCHAKAL Ahmed</name>
                                     <email>ahmed.tchakal@gmail.com</email>
-                                    <linkedIn>TCHAKAL Ahmed</linkedIn>
+                                    <name>TCHAKAL Ahmed</name>
                                     <url>https://www.linkedin.com/in/ahmed-tchakal-89aa0b128/</url>
                                 </contact>
+                                <license>
+                                    <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+                                    <name>Apache 2.0</name>
+                                </license>
                             </info>
-                            <outputPath>${project.build.directory}</outputPath>
-                            <outputFormats>json</outputFormats>
-                            <swaggerApiReader>com.github.kongchen.swagger.reader.SpringMvcApiReader</swaggerApiReader>
-                            <swaggerDirectory>${project.build.directory}</swaggerDirectory>
+                            <securityDefinitions>
+                                <securityDefinition>
+                                    <name>basicAuth</name>
+                                    <type>basic</type>
+                                </securityDefinition>
+                                <securityDefinition>
+                                    <json>/securityDefinition.json</json>
+                                </securityDefinition>
+                            </securityDefinitions>
+                            <responseMessageOverrides>
+                                <responseMessageOverride>
+                                    <code>401</code>
+                                    <message>Unauthenticated - could not authenticate the user.</message>
+                                </responseMessageOverride>
+                                <responseMessageOverride>
+                                    <code>403</code>
+                                    <message>Forbidden - the user does not have the required permissions to execute this
+                                        request.
+                                    </message>
+                                </responseMessageOverride>
+                            </responseMessageOverrides>
+
+                            <!-- Support classpath or file absolute path here.
+                            1) classpath e.g: "classpath:/markdown.hbs", "classpath:/templates/hello.html"
+                            2) file e.g: "${basedir}/src/main/resources/markdown.hbs",
+                                "${basedir}/src/main/resources/template/hello.html" -->
+                            <templatePath>${basedir}/src/test/resources/strapdown.html.hbs</templatePath>
+                            <outputPath>${basedir}/generated/document.html</outputPath>
+                            <swaggerDirectory>${basedir}/generated/swagger-ui</swaggerDirectory>
+                            <swaggerApiReader>com.wordnik.swagger.jaxrs.reader.DefaultJaxrsApiReader</swaggerApiReader>
+                            <attachSwaggerArtifact>true</attachSwaggerArtifact>
+                            <modelConverters>io.swagger.validator.BeanValidator</modelConverters>
+                            <swaggerExtensions>
+                                <swaggerExtension>com.example.VendorExtension</swaggerExtension>
+                            </swaggerExtensions>
+                            <enabledObjectMapperFeatures>
+                                <feature>
+                                    com.fasterxml.jackson.databind.SerializationFeature.WRITE_ENUMS_USING_TO_STRING
+                                </feature>
+                                <feature>com.fasterxml.jackson.core.JsonParser$Feature.ALLOW_NUMERIC_LEADING_ZEROS
+                                </feature>
+                            </enabledObjectMapperFeatures>
+                            <disabledObjectMapperFeatures>
+                                <feature>com.fasterxml.jackson.databind.SerializationFeature.FAIL_ON_EMPTY_BEANS
+                                </feature>
+                            </disabledObjectMapperFeatures>
+                            <operationIdFormat>{{className}}_{{methodName}}_{{httpMethod}}</operationIdFormat>
+                            <externalDocs>
+                                <description>Example external docs</description>
+                                <url>https://example.com/docs</url>
+                            </externalDocs>
                         </apiSource>
                     </apiSources>
                 </configuration>
                 <executions>
                     <execution>
-                        <phase>install</phase>
+                        <phase>compile</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                     </execution>
                 </executions>
+                <dependencies>
+                    <!-- Adding dependency to swagger-hibernate-validations to enable the BeanValidator as a custom
+                         model converter -->
+                    <dependency>
+                        <groupId>io.swagger</groupId>
+                        <artifactId>swagger-hibernate-validations</artifactId>
+                        <version>1.5.6</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
