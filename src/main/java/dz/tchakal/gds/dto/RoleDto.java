@@ -13,6 +13,8 @@ import javax.persistence.Table;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class RoleDto {
 
     private Integer id;

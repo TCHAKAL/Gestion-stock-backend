@@ -14,6 +14,8 @@ import java.math.BigDecimal;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class LigneCommandeClientDto {
 
     private Integer id;

@@ -2,8 +2,10 @@ package dz.tchakal.gds.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import dz.tchakal.gds.model.Categorie;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.OneToMany;
@@ -11,6 +13,8 @@ import java.util.List;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CategorieDto {
 
     private Integer id;

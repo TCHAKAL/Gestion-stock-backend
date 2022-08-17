@@ -11,6 +11,8 @@ import java.time.Instant;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class MvtStockDto {
 
     private Integer id;

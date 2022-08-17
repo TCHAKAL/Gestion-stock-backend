@@ -10,6 +10,8 @@ import java.util.List;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UtilisateurDto {
 
     private Integer id;

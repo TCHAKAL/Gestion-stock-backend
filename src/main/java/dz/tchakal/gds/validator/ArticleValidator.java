@@ -13,7 +13,7 @@ public class ArticleValidator {
     public static List<String> validate(ArticleDto articleDto) {
         List<String> errors = new ArrayList<>();
 
-        if (articleDto == null) {
+        if (articleDto != null) {
             if (!StringUtils.hasLength(articleDto.getCode())) {
                 errors.add(StaticUtil.CODE_OBLIGATOIRE);
             }

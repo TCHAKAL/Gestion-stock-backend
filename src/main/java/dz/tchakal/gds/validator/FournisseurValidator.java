@@ -12,7 +12,7 @@ public class FournisseurValidator {
     public static List<String> validate(FournisseurDto fournisseurDto) {
         List<String> errors = new ArrayList<>();
 
-        if (fournisseurDto == null) {
+        if (fournisseurDto != null) {
             if (!StringUtils.hasLength(fournisseurDto.getNom())) {
                 errors.add(StaticUtil.NOM_OBLIGATOIRE);
             }

@@ -12,21 +12,31 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class) //pour assiger des valeur pour CreatedDate et LastModifiedDate
 public class AbstractEntity implements Serializable {
 
 
-    @CreatedDate
-    @Column(name = "creation_date", nullable = false)
-    @JsonIgnore
-    private Date creationDate;
+//    @CreatedDate
+    @Column(name = "creation_date")
+    private Instant creationDate;
 
-    @LastModifiedDate
-    @Column(name = "last_modified_date", nullable = false)
-    @JsonIgnore
-    private Date lastModifiedDate;
+//    @LastModifiedDate
+    @Column(name = "last_modified_date")
+    private Instant lastModifiedDate;
+
+    @PrePersist
+    public void prePersist(){
+        creationDate = Instant.now();
+    }
+    @PreUpdate
+    public void PreUpdate(){
+        lastModifiedDate = Instant.now();
+    }
 }

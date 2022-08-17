@@ -13,6 +13,8 @@ import java.math.BigDecimal;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class LigneVenteDto {
 
     private Integer id;

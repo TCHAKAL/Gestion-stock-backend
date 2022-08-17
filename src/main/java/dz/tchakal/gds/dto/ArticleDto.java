@@ -2,8 +2,10 @@ package dz.tchakal.gds.dto;
 
 import dz.tchakal.gds.model.Article;
 import dz.tchakal.gds.model.Categorie;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
@@ -12,7 +14,8 @@ import java.math.BigDecimal;
 
 @Builder
 @Data
-
+@AllArgsConstructor
+@NoArgsConstructor
 public class ArticleDto {
 
     private Integer id;

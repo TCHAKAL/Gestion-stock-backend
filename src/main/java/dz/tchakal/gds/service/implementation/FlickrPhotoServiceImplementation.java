@@ -40,6 +40,6 @@ public class FlickrPhotoServiceImplementation implements FlickrPhotoService {
     }
 
     public void connect(){
-
+        //Le code de cette méthode est dans la classe FlickrConfiguration dans la méthode getFlickr
     }
 }

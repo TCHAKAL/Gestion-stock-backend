@@ -14,6 +14,8 @@ import java.util.List;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class VenteDto {
 
     private Integer id;
