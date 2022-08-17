@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface CategorieRepository extends JpaRepository<Categorie,Integer> {
 
     Categorie findByDesignation(String designation);
+
+    Categorie findByCode(String code);
 }

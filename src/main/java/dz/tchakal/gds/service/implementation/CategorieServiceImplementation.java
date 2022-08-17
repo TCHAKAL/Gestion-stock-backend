@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CategorieServiceImplementation implements CategorieService {
 
-    private CategorieRepository categorieRepository;
+    private final CategorieRepository categorieRepository;
 
     @Autowired
     public CategorieServiceImplementation(CategorieRepository categorieRepository) {
@@ -36,9 +36,9 @@ public class CategorieServiceImplementation implements CategorieService {
     @Override
     public CategorieDto save(CategorieDto categorieDto) {
         List<String> errors = CategorieValidator.validate(categorieDto);
-        if(!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             log.error("La catégorie n'est pas valide");
-            throw new InvalidEntityException("La catégorie n'est pas valide", ErrorCode.CATEGORIE_NOT_VALIDE,errors);
+            throw new InvalidEntityException("La catégorie n'est pas valide", ErrorCode.CATEGORIE_NOT_VALIDE, errors);
         }
         return CategorieDto.fromEntity(
                 categorieRepository.save(CategorieDto.toEntity(categorieDto))
@@ -47,26 +47,36 @@ public class CategorieServiceImplementation implements CategorieService {
 
     @Override
     public CategorieDto findById(Integer id) {
-        if(id==null){
-            log.error("Catégorie ID est null");
+        if (id == null) {
+            log.error("L'id de la catégorie est null");
             return null;
         }
         Optional<Categorie> categorie = categorieRepository.findById(id);
         CategorieDto categorieDto = CategorieDto.fromEntity(categorie.get());
         return Optional.of(categorieDto)
-                .orElseThrow(()->new EntityNotFoundException(StaticUtil.AUCUN_ELEMENT_TROUVE,ErrorCode.ARTICLE_NOT_FOUND));
+                .orElseThrow(() -> new EntityNotFoundException(StaticUtil.AUCUN_ELEMENT_TROUVE, ErrorCode.CATEGORIE_NOT_FOUND));
+    }
+
+    @Override
+    public CategorieDto findByCode(String code) {
+        if (code == null) {
+            log.error("Le code de la catégorie est null");
+            return null;
+        }
+        return Optional.of(CategorieDto.fromEntity(categorieRepository.findByCode(code)))
+                .orElseThrow(()-> new EntityNotFoundException(StaticUtil.AUCUN_ELEMENT_TROUVE,ErrorCode.CATEGORIE_NOT_FOUND));
     }
 
     @Override
     public CategorieDto findByDesignation(String designation) {
-        if(designation==null){
-            log.error("Catégorie designation est null");
+        if (designation == null) {
+            log.error("La designation de la catégorie est null");
             return null;
         }
         Categorie categorie = categorieRepository.findByDesignation(designation);
         CategorieDto articleDto = CategorieDto.fromEntity(categorie);
         return Optional.of(articleDto)
-                .orElseThrow(()->new EntityNotFoundException(StaticUtil.AUCUN_ELEMENT_TROUVE,ErrorCode.ARTICLE_NOT_FOUND));
+                .orElseThrow(() -> new EntityNotFoundException(StaticUtil.AUCUN_ELEMENT_TROUVE, ErrorCode.CATEGORIE_NOT_FOUND));
     }
 
     @Override
@@ -79,9 +89,9 @@ public class CategorieServiceImplementation implements CategorieService {
 
     @Override
     public void delete(Integer id) {
-        if(id==null){
-            throw new InvalidEntityException(StaticUtil.AUCUN_ELEMENT_TROUVE,ErrorCode.CATEGORIE_NOT_FOUND);
-        }else{
+        if (id == null) {
+            throw new InvalidEntityException(StaticUtil.AUCUN_ELEMENT_TROUVE, ErrorCode.CATEGORIE_NOT_FOUND);
+        } else {
             categorieRepository.deleteById(id);
         }
     }

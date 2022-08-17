@@ -9,9 +9,12 @@ public interface CategorieService {
 
     CategorieDto findById(Integer id);
 
+    CategorieDto findByCode(String code);
+
     CategorieDto findByDesignation(String designation);
 
     List<CategorieDto> findAll();
 
     void delete(Integer id);
+
 }

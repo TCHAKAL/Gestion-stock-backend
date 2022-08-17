@@ -40,12 +40,12 @@ public interface ArticleApi {
     @GetMapping(value = Constant.APP_ROOT + "/articles/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Charger la liste des articles", notes = "Cette méthode permet de renvoyer la liste des articles", responseContainer = "List<ArticleDto>")
     @ApiResponses(value ={
-            @ApiResponse(code = 200, message = "L'objet article est trouvé dans la BDD"),
-            @ApiResponse(code = 404, message = "L'objet article n'est pas trouvé dans la BDD")
+            @ApiResponse(code = 200, message = "Les articles sont trouvés dans la BDD"),
+            @ApiResponse(code = 404, message = "Les articles ne sont pas trouvés dans la BDD")
     })
     List<ArticleDto> findAll();
 
-    @DeleteMapping(value = Constant.APP_ROOT + "/articles/delete/{codeArticle}")
+    @DeleteMapping(value = Constant.APP_ROOT + "/articles/delete/{idArticle}")
     @ApiOperation(value = "Supprimer un article", notes = "Cette méthode permet de supprimer un article par son ID ")
     @ApiResponses(value ={
             @ApiResponse(code = 200, message = "L'objet article est supprimé de la BDD"),
