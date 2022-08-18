@@ -1,8 +1,9 @@
 # GestionStock
 
+Backend avec Spring boot
+Frontend avec Angular 10
+
 1. Conception et developpement d'une application web gestion de stock
-Développer le backend avec Spring boot 
-Développer le frontend avec Angular 10
 
 2. Dockeriser l'application (l'environnement)
   - Conteneur pour la BDD

@@ -2,7 +2,6 @@ package dz.tchakal.gds.controller;
 
 import dz.tchakal.gds.controller.api.UtilisateurApi;
 import dz.tchakal.gds.dto.UtilisateurDto;
-import dz.tchakal.gds.repository.UtilisateurRepository;
 import dz.tchakal.gds.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

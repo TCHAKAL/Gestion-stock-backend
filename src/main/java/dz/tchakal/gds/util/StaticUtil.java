@@ -31,4 +31,5 @@ public interface StaticUtil {
     public static final String TYPE_OBLIGATOIRE =  "Veuillez renseigner le type svp !";
     public static final String UTILISATEUR_OBLIGATOIRE = "Veuillez renseigner l'utilisateur' type svp !";
     public static final String AUCUN_ELEMENT_TROUVE = "Aucun élement trouvé !";
+    String UTILISATEUR_NOT_FOUND = "L'utilisateur n'existe pas";
 }

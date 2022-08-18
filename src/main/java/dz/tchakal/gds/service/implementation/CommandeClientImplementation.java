@@ -1,6 +1,5 @@
 package dz.tchakal.gds.service.implementation;
 
-import dz.tchakal.gds.dto.ArticleDto;
 import dz.tchakal.gds.dto.CommandeClientDto;
 import dz.tchakal.gds.dto.LigneCommandeClientDto;
 import dz.tchakal.gds.exception.EntityNotFoundException;

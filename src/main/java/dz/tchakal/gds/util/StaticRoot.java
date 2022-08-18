@@ -28,4 +28,5 @@ public interface StaticRoot {
     String VENTE_ENDPOINT_FINDBYCODE = VENTE_ENDPOINT + "/{codeVente}";
     String VENTE_ENDPOINT_FINDBYDATEVENTE = VENTE_ENDPOINT + "/{dateVente}";
     String VENTE_ENDPOINT_DELETE = VENTE_ENDPOINT + "/delete/{idVente}";
+    String AUTHENTICATION_ENDPOINT = APP_ROOT+"/authentication";
 }
