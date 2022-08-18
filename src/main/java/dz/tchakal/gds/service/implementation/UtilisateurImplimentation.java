@@ -55,8 +55,9 @@ public class UtilisateurImplimentation implements UtilisateurService {
             log.error("Le utilisateur avec l'email " + email + " n'est pas présent dans la BDD");
             return null;
         }
-        Optional<Utilisateur> utilisateur = utilisateurRepository.findByEmail(email);
-        return Optional.of(UtilisateurDto.fromEntity(utilisateur.get()))
+        Utilisateur utilisateur = utilisateurRepository.findByEmail(email);
+        System.err.println(utilisateur);
+        return Optional.of(UtilisateurDto.fromEntity(utilisateur))
                 .orElseThrow(() -> new EntityNotFoundException(StaticUtil.AUCUN_ELEMENT_TROUVE, ErrorCode.CLIENT_NOT_FOUND));
     }
 

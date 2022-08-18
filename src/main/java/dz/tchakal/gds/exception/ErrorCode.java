@@ -32,7 +32,8 @@ public enum ErrorCode {
     //Administration
     ENTREPRISE_NOT_FOUND(12000),
     UTILISATEUR_NOT_FOUND(13000),
-    ROLE_NOT_FOUND(14000);
+    ROLE_NOT_FOUND(14000),
+    BAD_CREDENTIALS(15000);
 
     private int code;
 

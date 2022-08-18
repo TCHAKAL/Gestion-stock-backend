@@ -19,6 +19,17 @@ public class Entreprise extends AbstractEntity{
 
     @Column(name = "nom")
     private String nom;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "photo")
+    private String photo;
+
+    @Column(name = "adresse")
+    private Adresse adresse;
+
+
     @ToString.Exclude //pour eviter la boucle infinie de java.lang.StackOverflowError: null
     @OneToMany(mappedBy = "entreprise")
     private List<Utilisateur> utilisateurs;

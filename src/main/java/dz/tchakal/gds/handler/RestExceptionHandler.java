@@ -1,13 +1,18 @@
 package dz.tchakal.gds.handler;
 
 import dz.tchakal.gds.exception.EntityNotFoundException;
+import dz.tchakal.gds.exception.ErrorCode;
 import dz.tchakal.gds.exception.InvalidEntityException;
+import dz.tchakal.gds.util.StaticUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import java.util.Collections;
 
 @RestControllerAdvice //On a pasbesoin d'ajouter l@ response body a chaque méthode
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -31,6 +36,18 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 .httpCode(badRequest.value())
                 .message(exception.getMessage())
                 .errors(exception.getErrors())
+                .build();
+        return new ResponseEntity<>(errorDto,badRequest);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorDto> handleException(BadCredentialsException exception, WebRequest webRequest){
+        final HttpStatus badRequest = HttpStatus.BAD_REQUEST;
+        final ErrorDto errorDto = ErrorDto.builder()
+                .errorCode(ErrorCode.BAD_CREDENTIALS)
+                .httpCode(badRequest.value())
+                .message(exception.getMessage())
+                .errors(Collections.singletonList(StaticUtil.LOGIN_MOT_PASSE_INCORRECT))
                 .build();
         return new ResponseEntity<>(errorDto,badRequest);
     }

@@ -32,4 +32,6 @@ public interface StaticUtil {
     public static final String UTILISATEUR_OBLIGATOIRE = "Veuillez renseigner l'utilisateur' type svp !";
     public static final String AUCUN_ELEMENT_TROUVE = "Aucun élement trouvé !";
     String UTILISATEUR_NOT_FOUND = "L'utilisateur n'existe pas";
+    String AUTHORIZATION_HEADER = "Authorization";
+    String LOGIN_MOT_PASSE_INCORRECT = "Le login et/ou le mot de passe sont incorrects";
 }

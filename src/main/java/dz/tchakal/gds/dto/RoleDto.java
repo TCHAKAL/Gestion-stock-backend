@@ -1,15 +1,10 @@
 package dz.tchakal.gds.dto;
 
-import dz.tchakal.gds.model.AbstractEntity;
-import dz.tchakal.gds.model.Client;
 import dz.tchakal.gds.model.Role;
-import dz.tchakal.gds.model.Utilisateur;
-import lombok.*;
-
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
@@ -22,7 +17,6 @@ public class RoleDto {
     private String roleName;
 
     private UtilisateurDto utilisateur;
-
 
     public static RoleDto fromEntity(Role role) {
         if (role == null) {

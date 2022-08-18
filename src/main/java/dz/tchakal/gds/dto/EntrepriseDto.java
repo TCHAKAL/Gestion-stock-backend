@@ -1,7 +1,7 @@
 package dz.tchakal.gds.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import dz.tchakal.gds.model.Client;
+import dz.tchakal.gds.model.Adresse;
 import dz.tchakal.gds.model.Entreprise;
 import dz.tchakal.gds.model.Utilisateur;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import java.util.List;
 
 @Data
@@ -20,6 +19,15 @@ public class EntrepriseDto {
     private Integer id;
 
     private String nom;
+
+    private String email;
+
+    private String photo;
+
+    private Adresse adresse;
+
+
+
 
     @JsonIgnore
     private List<Utilisateur> utilisateurs;
@@ -32,6 +40,9 @@ public class EntrepriseDto {
         return EntrepriseDto.builder()
                 .id(entreprise.getId())
                 .nom(entreprise.getNom())
+                .email(entreprise.getEmail())
+                .adresse(entreprise.getAdresse())
+                .photo(entreprise.getPhoto())
                 .build();
     }
     public static Entreprise toEntity(EntrepriseDto entrepriseDto) {
@@ -42,6 +53,9 @@ public class EntrepriseDto {
         return Entreprise.builder()
                 .id(entrepriseDto.getId())
                 .nom(entrepriseDto.getNom())
+                .email(entrepriseDto.getEmail())
+                .adresse(entrepriseDto.getAdresse())
+                .photo(entrepriseDto.getPhoto())
                 .build();
     }
 }

@@ -42,7 +42,7 @@ public class Utilisateur extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "entreprise")
     private Entreprise entreprise;
-
+    @ToString.Exclude
     @OneToMany(mappedBy = "utilisateur")
     private List<Role> roles;
 

@@ -2,6 +2,7 @@ package dz.tchakal.gds.controller;
 
 import dz.tchakal.gds.dto.authentication.AuthenticationRequest;
 import dz.tchakal.gds.dto.authentication.AuthenticationResponse;
+import dz.tchakal.gds.model.authentication.ExtendedUser;
 import dz.tchakal.gds.service.authentication.ApplicationUserDetailService;
 import dz.tchakal.gds.util.JWTUtil;
 import dz.tchakal.gds.util.StaticRoot;
@@ -38,8 +39,8 @@ public class AuthenticationController {
                 )
         );
         final UserDetails userDetails = userDetailService.loadUserByUsername(request.getEmail());
-        final String jwt = jwtUtil.generateToken(userDetails);
-        log.info("Entreprise "+jwtUtil.extractEntreprise(jwt));
+        final String jwt = jwtUtil.generateToken((ExtendedUser) userDetails);
+        log.info("jwt "+jwt);
         return ResponseEntity.ok(AuthenticationResponse.builder().jwtAccessToken(jwt).build());
     }
 }

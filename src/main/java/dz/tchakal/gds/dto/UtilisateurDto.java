@@ -1,10 +1,13 @@
 package dz.tchakal.gds.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import dz.tchakal.gds.model.*;
-import lombok.*;
+import dz.tchakal.gds.model.Adresse;
+import dz.tchakal.gds.model.Role;
+import dz.tchakal.gds.model.Utilisateur;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.time.Instant;
 import java.util.List;
 
@@ -30,9 +33,9 @@ public class UtilisateurDto {
 
     private String photo;
 
+
     private EntrepriseDto entreprise;
 
-    @JsonIgnore
     private List<Role> roles;
 
 
