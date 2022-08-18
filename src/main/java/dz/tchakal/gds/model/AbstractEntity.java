@@ -23,20 +23,20 @@ import java.util.Date;
 public class AbstractEntity implements Serializable {
 
 
-//    @CreatedDate
-    @Column(name = "creation_date")
+    @CreatedDate
+    @Column(name = "creation_date",nullable = false,updatable = false)
     private Instant creationDate;
 
-//    @LastModifiedDate
+    @LastModifiedDate
     @Column(name = "last_modified_date")
     private Instant lastModifiedDate;
 
-    @PrePersist
-    public void prePersist(){
-        creationDate = Instant.now();
-    }
-    @PreUpdate
-    public void PreUpdate(){
-        lastModifiedDate = Instant.now();
-    }
+//    @PrePersist
+//    public void prePersist(){
+//        creationDate = Instant.now();
+//    }
+//    @PreUpdate
+//    public void PreUpdate(){
+//        lastModifiedDate = Instant.now();
+//    }
 }

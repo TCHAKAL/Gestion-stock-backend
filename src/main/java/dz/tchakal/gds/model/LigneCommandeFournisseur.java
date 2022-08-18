@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true )
-@Table(name = "ligneç_commande_fournisseur")
+@Table(name = "ligne_commande_fournisseur")
 @Entity
 public class LigneCommandeFournisseur extends AbstractEntity{
     @Id
