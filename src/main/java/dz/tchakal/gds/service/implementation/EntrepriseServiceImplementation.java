@@ -43,16 +43,21 @@ public class EntrepriseServiceImplementation implements EntrepriseService {
     public EntrepriseDto save(EntrepriseDto entrepriseDto) {
         List<String> errors = EntrepriseValidator.validate(entrepriseDto);
         if (!errors.isEmpty()) {
-            log.error("L'entreprise n'est pas valide");
+            log.error("L'entreprise n'est pas valide {}"+entrepriseDto);
             throw new InvalidEntityException("L'entreprise n'est pas valide", ErrorCode.ARTICLE_NOT_VALIDE, errors);
         }
+        //Sauvgarder l'entreprise
         EntrepriseDto savedEntreprise = EntrepriseDto.fromEntity(entrepriseRepository.save(EntrepriseDto.toEntity(entrepriseDto)));
+        //Créer un utilisateur a partir de l'entreprise
         UtilisateurDto utilisateur = fromEntreprise(savedEntreprise);
+        //Sauvgarder l'entreprise
         UtilisateurDto savedUser = utilisateurService.save(utilisateur);
+        //Ajouter un role ADMIN pour l'utlisateur
         RoleDto roleDto = RoleDto.builder()
                 .roleName("ADMIN")
                 .utilisateur(savedUser)
                 .build();
+        //Sauvgarder le role
         roleRepository.save(RoleDto.toEntity(roleDto));
         return savedEntreprise;
     }
@@ -63,14 +68,14 @@ public class EntrepriseServiceImplementation implements EntrepriseService {
                 .nom(savedEntreprise.getNom())
                 .nom(savedEntreprise.getNom())
                 .email(savedEntreprise.getEmail())
-                .motPasse(generateMotPasse())
+                .motPasse(generateRandomMotPasse())
                 .dateNaissance(Instant.now())
                 .photo(savedEntreprise.getPhoto())
                 .build();
     }
 
-    private String generateMotPasse() {
-        return "som3Randomp@assWord";
+    private String generateRandomMotPasse() {
+        return "som3R@ndomP@a$$word";
     }
 
     @Override

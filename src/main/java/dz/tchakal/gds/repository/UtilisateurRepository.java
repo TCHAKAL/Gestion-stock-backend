@@ -7,12 +7,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+
 @Repository
-public interface UtilisateurRepository extends JpaRepository<Utilisateur,Integer> {
+public interface UtilisateurRepository extends JpaRepository<Utilisateur, Integer> {
 
 
-    @Query("select u from Utilisateur u where u.email= :email")
-    Utilisateur findByEmail(@Param("email") String email);
+    //@Query("select u from Utilisateur u where u.email= :email") si on veut utiliser JPQL
+    Optional<Utilisateur> findUtilisateurByEmail(String email);
 
-    Optional<Utilisateur> findByEmailAndMotPasse(String email,String motPasse);
+    @Query("select u from Utilisateur u where u.email= :email and u.motPasse=:motPasse")
+    Optional<Utilisateur> findUtilisateurByEmailAndMotPasse(@Param("email") String email, @Param("motPasse") String motPasse);
 }

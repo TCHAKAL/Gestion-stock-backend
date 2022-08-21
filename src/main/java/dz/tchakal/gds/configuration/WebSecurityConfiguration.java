@@ -29,7 +29,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
                         "/**/authentication/**",
-                        "/**/entreprises/**",
+                        "/**/entreprises/create",
                         "/v2/api-docs",
                         "/swagger-resources/**",
                         "/swagger-ui.html",
@@ -51,14 +51,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        //Dire a spring quel user details a utilisé
         auth.userDetailsService(applicationUserDetailService)
                 .passwordEncoder(passwordEncoder());
     }
 
     @Bean
-    @Override
-    public AuthenticationManager authenticationManager() throws Exception {
-        return super.authenticationManager();
+    public AuthenticationManager customAuthenticationManager() throws Exception {
+        return authenticationManagerBean();
     }
 
     //NoOpPasswordEncoder.getInstance() ou bien "{noop}" pour dire a spring boot que le mot de passe n'est pas crypté

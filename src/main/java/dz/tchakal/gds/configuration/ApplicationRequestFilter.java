@@ -31,24 +31,29 @@ public class ApplicationRequestFilter extends OncePerRequestFilter {//OncePerReq
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         final String authHeader = request.getHeader(StaticUtil.AUTHORIZATION_HEADER);
-        String email = null,jwt=null,entreprise=null;
+        String email = null,
+                jwt = null,
+                entreprise = null;
 
-        if(authHeader!=null &&  StringUtils.hasLength(authHeader) && authHeader.startsWith("Bearer ")){
-            jwt = authHeader.substring(7);//Bearer  a 7 carateres
+        if (authHeader != null && StringUtils.hasLength(authHeader) && authHeader.startsWith("Bearer ")) {
+            jwt = authHeader.substring(7);//Bearer  a 7 caratères
             email = jwtUtil.extractUsername(jwt);
             entreprise = jwtUtil.extractEntreprise(jwt);
         }
-        //Vérifier si jwt est valide
-        if(email!=null && StringUtils.hasLength(email) && SecurityContextHolder.getContext().getAuthentication()==null){
+        //Vérifier si jwt token est valide
+        if (email != null && StringUtils.hasLength(email) && SecurityContextHolder.getContext().getAuthentication() == null) {
             //Récupérer l'utilisateur
             UserDetails userDetails = this.userDetailService.loadUserByUsername(email);
-            if(jwtUtil.validateToken(jwt,userDetails)){
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails,userDetails.getAuthorities());
+            if (jwtUtil.validateToken(jwt, userDetails)) {
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
-        MDC.put("entreprise",entreprise);
-        filterChain.doFilter(request,response);
+        //Stocker l'id de l'entreprise
+        MDC.put("entreprise", entreprise);
+        filterChain.doFilter(request, response);
     }
+
+
 }

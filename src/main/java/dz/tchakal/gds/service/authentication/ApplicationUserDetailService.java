@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,19 +19,15 @@ public class ApplicationUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        System.err.println("email >> "+email);
-        UtilisateurDto utilisateur =  utilisateurService.findByEmail(email);
+        //Charger l'utilisateur par son nom
+        UtilisateurDto utilisateur = utilisateurService.findByEmail(email);
         //Charger la liste des privileges
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        if(utilisateur.getRoles()!=null){
+        if (utilisateur.getRoles() != null) {
             utilisateur.getRoles().forEach(role -> {
                 authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
             });
-        }else{
-            authorities.add(new SimpleGrantedAuthority("ADMIN"));
-
         }
-
         return new ExtendedUser(utilisateur.getEmail(), utilisateur.getMotPasse(), authorities, utilisateur.getEntreprise().getId());
     }
 

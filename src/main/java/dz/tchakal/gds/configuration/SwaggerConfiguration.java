@@ -26,8 +26,9 @@ public class SwaggerConfiguration {
     @Bean
     public Docket api(){
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(new ApiInfoBuilder()
-                        .description("Gestion de stock API documentation ")
+                .apiInfo(
+                        new ApiInfoBuilder()
+                        .description("Gestion de stock API documentation")
                         .title("Stock it easy Rest API")
                         .build()
                 )

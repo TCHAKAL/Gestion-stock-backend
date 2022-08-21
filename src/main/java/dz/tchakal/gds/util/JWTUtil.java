@@ -14,6 +14,7 @@ import java.util.function.Function;
 
 @Service
 public class JWTUtil {
+    //La clé de sécurité
     private String SECRET_KEY = "secret";
 
     public String extractUsername(String token) {
@@ -44,19 +45,19 @@ public class JWTUtil {
         return createToken(claims, userDetails);
     }
 
-    public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userDetails.getUsername());
-    }
+//    public String generateToken(UserDetails userDetails) {
+//        Map<String, Object> claims = new HashMap<>();
+//        return createToken(claims, userDetails.getUsername());
+//    }
 
-    private String createToken(Map<String, Object> claims, String subject) {
-
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-               //La durée d'expération du token
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
-                .claim("entreprise","")
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
-    }
+//    private String createToken(Map<String, Object> claims, String subject) {
+//
+//        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+//               //La durée d'expération du token
+//                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+//                .claim("entreprise","")
+//                .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
+//    }
 
     private String createToken(Map<String, Object> claims, ExtendedUser userDetails) {
 

@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 @Service("UtilisateurImplimentation")
 @Slf4j
 public class UtilisateurImplimentation implements UtilisateurService {
@@ -55,21 +56,20 @@ public class UtilisateurImplimentation implements UtilisateurService {
             log.error("Le utilisateur avec l'email " + email + " n'est pas présent dans la BDD");
             return null;
         }
-        Utilisateur utilisateur = utilisateurRepository.findByEmail(email);
-        System.err.println(utilisateur);
-        return Optional.of(UtilisateurDto.fromEntity(utilisateur))
-                .orElseThrow(() -> new EntityNotFoundException(StaticUtil.AUCUN_ELEMENT_TROUVE, ErrorCode.CLIENT_NOT_FOUND));
+        return utilisateurRepository.findUtilisateurByEmail(email)
+                .map(UtilisateurDto::fromEntity)
+                .orElseThrow(() -> new EntityNotFoundException(StaticUtil.AUCUN_ELEMENT_TROUVE, ErrorCode.UTILISATEUR_NOT_FOUND));
     }
 
     @Override
     public UtilisateurDto findByEmailAndMotPasse(String email, String motPasse) {
-    if(email==null || !StringUtils.hasLength(email)||motPasse==null||!StringUtils.hasLength(motPasse)){
-        log.error("L'email et le mot de passe sont vides !!");
-        return null;
-    }
-    Optional<Utilisateur> utilisateur = utilisateurRepository.findByEmailAndMotPasse(email,motPasse);
-    return Optional.of(UtilisateurDto.fromEntity(utilisateur.get()))
-            .orElseThrow(()->new EntityNotFoundException(StaticUtil.AUCUN_ELEMENT_TROUVE,ErrorCode.UTILISATEUR_NOT_FOUND));
+        if (email == null || !StringUtils.hasLength(email) || motPasse == null || !StringUtils.hasLength(motPasse)) {
+            log.error("L'email et le mot de passe sont vides !!");
+            return null;
+        }
+        Optional<Utilisateur> utilisateur = utilisateurRepository.findUtilisateurByEmailAndMotPasse(email, motPasse);
+        return Optional.of(UtilisateurDto.fromEntity(utilisateur.get()))
+                .orElseThrow(() -> new EntityNotFoundException(StaticUtil.AUCUN_ELEMENT_TROUVE, ErrorCode.UTILISATEUR_NOT_FOUND));
     }
 
     @Override

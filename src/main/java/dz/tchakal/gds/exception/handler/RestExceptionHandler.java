@@ -1,4 +1,4 @@
-package dz.tchakal.gds.handler;
+package dz.tchakal.gds.exception.handler;
 
 import dz.tchakal.gds.exception.EntityNotFoundException;
 import dz.tchakal.gds.exception.ErrorCode;

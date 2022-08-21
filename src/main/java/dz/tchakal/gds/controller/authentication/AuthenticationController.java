@@ -1,4 +1,4 @@
-package dz.tchakal.gds.controller;
+package dz.tchakal.gds.controller.authentication;
 
 import dz.tchakal.gds.dto.authentication.AuthenticationRequest;
 import dz.tchakal.gds.dto.authentication.AuthenticationResponse;
