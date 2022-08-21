@@ -8,7 +8,8 @@ public class Intercepteur extends EmptyInterceptor {
 
     @Override
     public String onPrepareStatement(String sql) {
-        if (StringUtils.hasLength(sql) && sql.toLowerCase().startsWith("select")) {
+        System.out.println(sql);
+        if (StringUtils.hasLength(sql) && sql.toLowerCase().startsWith("select") && !sql.toLowerCase().contains("select nextval")) {
             String entityName = sql.substring(7, sql.indexOf("."));//exemple select utilisateu0_.
             String entreprise = MDC.get("entreprise");
 
