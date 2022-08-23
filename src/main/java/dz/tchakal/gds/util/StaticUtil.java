@@ -8,6 +8,7 @@ public interface StaticUtil {
     public static final String MOT_PASSE_OBLIGATOIRE ="Veuillez renseigner le mot de passe svp !" ;
     public static final String CODE_OBLIGATOIRE = "Veuillez renseigner le code svp !";
     public static final String DESIGNATION_OBLIGATOIRE = "Veuillez renseigner la désignation svp !";
+    public static final String DESCRIPTION_OBLIGATOIRE = "Veuillez renseigner la déscripttion svp !";
     public static final String ADRESSE_OBLIGATOIRE = "Veuillez renseigner l'adresse svp !";
     public static final String ADRESSE1_OBLIGATOIRE = "Veuillez renseigner l'adresse 1 svp !";
     public static final String VILLE_OBLIGATOIRE = "Veuillez renseigner la ville svp !";
@@ -15,12 +16,13 @@ public interface StaticUtil {
     public static final String PAYS_OBLIGATOIRE = "Veuillez renseigner le pays svp !";
     public static final String DATE_NAISSANCE_OBLIGATOIRE = "Veuillez renseigner la date de naissance svp !";
     public static final String ENTITE_NULL = "L'entité est null !"  ;
-    public static final String AGE_invalide ="L'age est invalide" ;
+    public static final String AGE_INVALIDE ="L'age est invalide" ;
     public static final String PRIX_UNITAIRE_HT_OBLIGATOIRE = "Veuillez renseigner le prix unitaire HT svp !";
     public static final String PRIX_UNITAIRE_TTC_OBLIGATOIRE = "Veuillez renseigner le prix unitaire TTC svp !";
     public static final String CATEGORIE_OBLIGATOIRE = "Veuillez renseigner la catégorie svp !";
     public static final String TELEPHONE_OBLIGATOIRE =  "Veuillez renseigner le numéro de téléphone svp !";
     public static final String DATE_COMMANDE_OBLIGATOIRE = "Veuillez renseigner la date de la commande svp !";
+    public static final String ETAT_COMMANDE_OBLIGATOIRE = "Veuillez renseigner l'état de la commande svp !";
     public static final String CLIENT_OBLIGATOIRE = "Veuillez renseigner le client svp !";
     public static final String FOURNISSEUR_OBLIGATOIRE =  "Veuillez renseigner le fournisseur svp !";
     public static final String ARTICLE_OBLIGATOIRE = "Veuillez renseigner l'article svp !";
@@ -34,4 +36,5 @@ public interface StaticUtil {
     String UTILISATEUR_NOT_FOUND = "L'utilisateur n'existe pas";
     String AUTHORIZATION_HEADER = "authorization";
     String LOGIN_MOT_PASSE_INCORRECT = "Le login et/ou le mot de passe sont incorrects";
+    String CODE_FISCALE_OBLIGATOIRE ="Veuillez renseigner le code fiscal svp !" ;
 }

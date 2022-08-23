@@ -19,6 +19,9 @@ public class CommandeClientValidator {
             if(commandeClientDto.getDateCommande()==null){
                 errors.add(StaticUtil.DATE_COMMANDE_OBLIGATOIRE);
             }
+            if(StringUtils.hasLength(commandeClientDto.getEtatCommande().toString())){
+                errors.add(StaticUtil.ETAT_COMMANDE_OBLIGATOIRE);
+            }
             if(commandeClientDto.getClient()==null){
                 errors.add(StaticUtil.CLIENT_OBLIGATOIRE);
             }

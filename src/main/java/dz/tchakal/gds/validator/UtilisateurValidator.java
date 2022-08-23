@@ -31,27 +31,19 @@ public class UtilisateurValidator {
                 errors.add(StaticUtil.DATE_NAISSANCE_OBLIGATOIRE);
             } else {
                 if (getAge(Date.from(utilisateurDto.getDateNaissance())) < 6) {
-                    errors.add(StaticUtil.AGE_invalide);
+                    errors.add(StaticUtil.AGE_INVALIDE);
                 }
             }
-            if (utilisateurDto.getAdresse() == null) {
-                errors.add(StaticUtil.ADRESSE_OBLIGATOIRE);
-            } else {
-                if (utilisateurDto.getAdresse().getAdresse1() == null || !StringUtils.hasLength(utilisateurDto.getAdresse().getAdresse1())) {
-                    errors.add(StaticUtil.ADRESSE1_OBLIGATOIRE);
-                }
-                if (utilisateurDto.getAdresse().getVille() == null || !StringUtils.hasLength(utilisateurDto.getAdresse().getVille())) {
-                    errors.add(StaticUtil.VILLE_OBLIGATOIRE);
-                }
-                if (utilisateurDto.getAdresse().getCodePostale() == null || !StringUtils.hasLength(utilisateurDto.getAdresse().getCodePostale())) {
-                    errors.add(StaticUtil.CODE_POSTALE_OBLIGATOIRE);
-                }
-                if (utilisateurDto.getAdresse().getPays() == null || !StringUtils.hasLength(utilisateurDto.getAdresse().getPays())) {
-                    errors.add(StaticUtil.PAYS_OBLIGATOIRE);
-                }
-            }
+            errors.addAll(AdresseValidator.validate(utilisateurDto.getAdresse()));
         } else {
             errors.add(StaticUtil.ENTITE_NULL);
+            errors.add(StaticUtil.DATE_OBLIGATOIRE);
+            errors.add(StaticUtil.PRENOM_OBLIGATOIRE);
+            errors.add(StaticUtil.EMAIL_OBLIGATOIRE);
+            errors.add(StaticUtil.MOT_PASSE_OBLIGATOIRE);
+            errors.add(StaticUtil.DATE_NAISSANCE_OBLIGATOIRE);
+            errors.add(StaticUtil.AGE_INVALIDE);
+            errors.addAll(AdresseValidator.validate(null));
         }
 
         return errors;

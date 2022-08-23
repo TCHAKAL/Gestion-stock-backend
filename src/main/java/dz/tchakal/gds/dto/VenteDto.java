@@ -1,14 +1,11 @@
 package dz.tchakal.gds.dto;
 
-import dz.tchakal.gds.model.AbstractEntity;
-import dz.tchakal.gds.model.Client;
-import dz.tchakal.gds.model.LigneVente;
 import dz.tchakal.gds.model.Vente;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.time.Instant;
 import java.util.List;
 
@@ -20,16 +17,15 @@ public class VenteDto {
 
     private Integer id;
 
-    private  String code;
+    private String code;
 
     private Instant dateVente;
 
-    private  String commentaire;
+    private String commentaire;
 
     private Integer entreprise;
 
     private List<LigneVenteDto> ligneVente;
-
 
     public static VenteDto fromEntity(Vente vente) {
         if (vente == null) {
@@ -44,6 +40,7 @@ public class VenteDto {
                 .entreprise(vente.getEntreprise())
                 .build();
     }
+
     public static Vente toEntity(VenteDto venteDto) {
         if (venteDto == null) {
             //TODO throw an exception

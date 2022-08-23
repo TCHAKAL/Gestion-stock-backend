@@ -19,6 +19,9 @@ public class CommandeFournisseurValidator {
             if(commandeFournisseurDto.getDateCommande()==null){
                 errors.add(StaticUtil.DATE_COMMANDE_OBLIGATOIRE);
             }
+            if(StringUtils.hasLength(commandeFournisseurDto.getEtatCommande().toString())){
+                errors.add(StaticUtil.ETAT_COMMANDE_OBLIGATOIRE);
+            }
             if(commandeFournisseurDto.getFournisseur()==null){
                 errors.add(StaticUtil.FOURNISSEUR_OBLIGATOIRE);
             }

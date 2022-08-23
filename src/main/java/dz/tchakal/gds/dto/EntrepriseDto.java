@@ -1,9 +1,7 @@
 package dz.tchakal.gds.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import dz.tchakal.gds.model.Adresse;
 import dz.tchakal.gds.model.Entreprise;
-import dz.tchakal.gds.model.Utilisateur;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,12 +20,20 @@ public class EntrepriseDto {
 
     private String email;
 
+    private String description;
+
+    private String codeFiscal;
+
     private String photo;
 
-    private Adresse adresse;
+    private AdresseDto adresse;
+
+    private String telephone;
+
+    private String siteWeb;
 
     @JsonIgnore
-    private List<Utilisateur> utilisateurs;
+    private List<UtilisateurDto> utilisateurs;
 
     public static EntrepriseDto fromEntity(Entreprise entreprise) {
         if (entreprise == null) {
@@ -38,8 +44,12 @@ public class EntrepriseDto {
                 .id(entreprise.getId())
                 .nom(entreprise.getNom())
                 .email(entreprise.getEmail())
-                .adresse(entreprise.getAdresse())
+                .description(entreprise.getDescription())
+                .codeFiscal(entreprise.getCodeFiscal())
                 .photo(entreprise.getPhoto())
+                .adresse(AdresseDto.fromEntity(entreprise.getAdresse()))
+                .telephone(entreprise.getTelephone())
+                .siteWeb(entreprise.getSiteWeb())
                 .build();
     }
     public static Entreprise toEntity(EntrepriseDto entrepriseDto) {
@@ -51,8 +61,12 @@ public class EntrepriseDto {
                 .id(entrepriseDto.getId())
                 .nom(entrepriseDto.getNom())
                 .email(entrepriseDto.getEmail())
-                .adresse(entrepriseDto.getAdresse())
+                .description(entrepriseDto.getDescription())
+                .codeFiscal(entrepriseDto.getCodeFiscal())
                 .photo(entrepriseDto.getPhoto())
+                .adresse(AdresseDto.toEntity(entrepriseDto.getAdresse()))
+                .telephone(entrepriseDto.getTelephone())
+                .siteWeb(entrepriseDto.getSiteWeb())
                 .build();
     }
 }

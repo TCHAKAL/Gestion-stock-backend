@@ -25,26 +25,14 @@ public class FournisseurValidator {
             if (!StringUtils.hasLength(fournisseurDto.getTelephone())) {
                 errors.add(StaticUtil.TELEPHONE_OBLIGATOIRE);
             }
-            if (fournisseurDto.getAdresse() == null) {
-                errors.add(StaticUtil.ADRESSE_OBLIGATOIRE);
-            } else {
-                if (fournisseurDto.getAdresse().getAdresse1() == null || !StringUtils.hasLength(fournisseurDto.getAdresse().getAdresse1())) {
-                    errors.add(StaticUtil.ADRESSE1_OBLIGATOIRE);
-                }
-                if (fournisseurDto.getAdresse().getVille() == null || !StringUtils.hasLength(fournisseurDto.getAdresse().getVille())) {
-                    errors.add(StaticUtil.VILLE_OBLIGATOIRE);
-                }
-                if (fournisseurDto.getAdresse().getCodePostale() == null || !StringUtils.hasLength(fournisseurDto.getAdresse().getCodePostale())) {
-                    errors.add(StaticUtil.CODE_POSTALE_OBLIGATOIRE);
-                }
-                if (fournisseurDto.getAdresse().getPays() == null || !StringUtils.hasLength(fournisseurDto.getAdresse().getPays())) {
-                    errors.add(StaticUtil.PAYS_OBLIGATOIRE);
-                }
-            }
-
-
+            errors.addAll(AdresseValidator.validate(fournisseurDto.getAdresse()));
         } else {
             errors.add(StaticUtil.ENTITE_NULL);
+            errors.add(StaticUtil.NOM_OBLIGATOIRE);
+            errors.add(StaticUtil.PRENOM_OBLIGATOIRE);
+            errors.add(StaticUtil.EMAIL_OBLIGATOIRE);
+            errors.add(StaticUtil.TELEPHONE_OBLIGATOIRE);
+            errors.addAll(AdresseValidator.validate(null));
         }
         return errors;
     }

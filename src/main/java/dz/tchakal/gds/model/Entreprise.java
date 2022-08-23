@@ -23,11 +23,23 @@ public class Entreprise extends AbstractEntity{
     @Column(name = "email")
     private String email;
 
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "code_fiscal")
+    private String codeFiscal;
+
     @Column(name = "photo")
     private String photo;
 
     @Column(name = "adresse")
     private Adresse adresse;
+
+    @Column(name = "telephone")
+    private String telephone;
+
+    @Column(name = "site_web")
+    private String siteWeb;
 
 
     @ToString.Exclude //pour eviter la boucle infinie de java.lang.StackOverflowError: null

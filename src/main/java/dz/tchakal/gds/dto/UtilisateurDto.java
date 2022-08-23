@@ -1,6 +1,5 @@
 package dz.tchakal.gds.dto;
 
-import dz.tchakal.gds.model.Adresse;
 import dz.tchakal.gds.model.Utilisateur;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,7 +27,7 @@ public class UtilisateurDto {
 
     private String motPasse;
 
-    private Adresse adresse;
+    private AdresseDto adresse;
 
     private String photo;
 
@@ -47,7 +46,7 @@ public class UtilisateurDto {
                 .nom(utilisateur.getNom())
                 .prenom(utilisateur.getPrenom())
                 .dateNaissance(utilisateur.getDateNaissance())
-                .adresse(utilisateur.getAdresse())
+                .adresse(AdresseDto.fromEntity(utilisateur.getAdresse()))
                 .email(utilisateur.getEmail())
                 .motPasse(utilisateur.getMotPasse())
                 .photo(utilisateur.getPhoto())
@@ -64,7 +63,7 @@ public class UtilisateurDto {
                 .nom(utilisateurDto.getNom())
                 .prenom(utilisateurDto.getPrenom())
                 .dateNaissance(utilisateurDto.getDateNaissance())
-                .adresse(utilisateurDto.getAdresse())
+                .adresse(AdresseDto.toEntity(utilisateurDto.getAdresse()))
                 .email(utilisateurDto.getEmail())
                 .motPasse(utilisateurDto.getMotPasse())
                 .photo(utilisateurDto.getPhoto())
