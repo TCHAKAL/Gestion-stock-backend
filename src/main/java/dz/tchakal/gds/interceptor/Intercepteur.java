@@ -11,16 +11,16 @@ public class Intercepteur extends EmptyInterceptor {
         System.out.println(sql);
         if (StringUtils.hasLength(sql) && sql.toLowerCase().startsWith("select") && !sql.toLowerCase().contains("select nextval")) {
             String entityName = sql.substring(7, sql.indexOf("."));//exemple select utilisateu0_.
-            String entreprise = MDC.get("entreprise");
+            String idEntreprise = MDC.get("idEntreprise");
 
             if (StringUtils.hasLength(entityName)
-                    && !sql.toLowerCase().contains("entreprise")
+                    && !sql.toLowerCase().contains("idEntreprise")
                     && !sql.toLowerCase().contains("role")
-                    && StringUtils.hasLength(entreprise)) {
+                    && StringUtils.hasLength(idEntreprise)) {
                 if (sql.toLowerCase().contains("where")) {
-                    sql = sql + " and " + entityName + ".entreprise = " + entreprise;
+                    sql = sql + " and " + entityName + ".idEntreprise = " + idEntreprise;
                 } else {
-                    sql = sql + " where " + entityName + ".entreprise = " + entreprise;
+                    sql = sql + " where " + entityName + ".idEntreprise = " + idEntreprise;
                 }
             }
         }

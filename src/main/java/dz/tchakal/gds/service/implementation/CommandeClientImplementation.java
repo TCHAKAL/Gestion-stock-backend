@@ -264,10 +264,12 @@ public class CommandeClientImplementation implements CommandeClientService {
 
     @Override
     public void delete(Integer id) {
-        if (id == null) {
-            throw new InvalidEntityException("La commande client avec l'id " + id + " n'est présent dans la BDD", ErrorCode.COMMANDE_CLIENT_NOT_FOUND);
-        }
+
         checkIdCommande(id);
+        List<LigneCommandeClient> ligneCommandeClients = ligneCommandeClientRepository.findAllByCommandeClientId(id);
+        if (!ligneCommandeClients.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer la commande, elle est utilisé dans des lignes commandes", ErrorCode.COMMANDE_CLIENT_ALREADY_IN_USE);
+        }
         Optional<CommandeClient> commandeClient = commandeClientRepository.findById(id);
         checkIsCommandeLivree(CommandeClientDto.fromEntity(commandeClient.get()));
         commandeClientRepository.deleteById(id);
@@ -308,7 +310,7 @@ public class CommandeClientImplementation implements CommandeClientService {
                     .typeMvt(TypeMvt.SORTIE)
                     .sourceMvtStock(SourceMvtStock.COMMANDE_CLIENT)
                     .quantite(ligneCommandeClient.getQuantite())
-                    .entreprise(ligneCommandeClient.getEntreprise())
+                    .idEntreprise(ligneCommandeClient.getIdEntreprise())
                     .build();
             mvtStockService.sortieStock(sortieStock);
         });

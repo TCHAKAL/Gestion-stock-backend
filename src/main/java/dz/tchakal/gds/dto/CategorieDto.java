@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.OneToMany;
 import java.util.List;
 
 @Data
@@ -23,7 +21,7 @@ public class CategorieDto {
 
     private String designation;
 
-    private Integer entreprise;
+     private Integer idEntreprise;
 
     @JsonIgnore
     private List<ArticleDto> articles;
@@ -37,7 +35,7 @@ public class CategorieDto {
                 .id(categorie.getId())
                 .code(categorie.getCode())
                 .designation(categorie.getDesignation())
-                .entreprise(categorie.getEntreprise())
+                .idEntreprise(categorie.getIdEntreprise())
                 .build();
     }
     public static Categorie toEntity(CategorieDto categorieDto) {
@@ -49,7 +47,7 @@ public class CategorieDto {
                 .id(categorieDto.getId())
                 .code(categorieDto.getCode())
                 .designation(categorieDto.getDesignation())
-                .entreprise(categorieDto.getEntreprise())
+                .idEntreprise(categorieDto.getIdEntreprise())
                 .build();
     }
 }

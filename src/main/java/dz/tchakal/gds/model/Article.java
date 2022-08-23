@@ -40,7 +40,7 @@ public class Article extends AbstractEntity{
     @JoinColumn(name = "categorie")
     private Categorie categorie;
 
-    @Column(name = "entreprise")
-    private Integer entreprise;
+    @Column(name = "id_entreprise")
+    private Integer idEntreprise;
 
 }

@@ -28,7 +28,7 @@ public class CategorieServiceImplementationTest {
         CategorieDto expectedCategorie = CategorieDto.builder()
                 .code("Cat Test")
                 .designation("Categorie de test")
-                .entreprise(1)
+                .idEntreprise(1)
                 .build();
 
         CategorieDto savedCategorie = categorieService.save(expectedCategorie);
@@ -41,7 +41,7 @@ public class CategorieServiceImplementationTest {
         assertNotNull(categorieToUpdate.getId());
         assertEquals(categorieToUpdate.getCode(), savedCategorie.getCode());
         assertEquals(categorieToUpdate.getDesignation(), savedCategorie.getDesignation());
-        assertEquals(categorieToUpdate.getEntreprise(), savedCategorie.getEntreprise());
+        assertEquals(categorieToUpdate.getIdEntreprise(), savedCategorie.getIdEntreprise());
     }
 
     @Test
@@ -49,7 +49,7 @@ public class CategorieServiceImplementationTest {
         CategorieDto expectedCategorie = CategorieDto.builder()
                 .code("Cat Test")
                 .designation("Categorie de test")
-                .entreprise(1)
+                .idEntreprise(1)
                 .build();
 
         CategorieDto savedCategorie = categorieService.save(expectedCategorie);
@@ -58,7 +58,7 @@ public class CategorieServiceImplementationTest {
         assertNotNull(savedCategorie.getId());
         assertEquals(expectedCategorie.getCode(), savedCategorie.getCode());
         assertEquals(expectedCategorie.getDesignation(), savedCategorie.getDesignation());
-        assertEquals(expectedCategorie.getEntreprise(), savedCategorie.getEntreprise());
+        assertEquals(expectedCategorie.getIdEntreprise(), savedCategorie.getIdEntreprise());
     }
 
     @Test

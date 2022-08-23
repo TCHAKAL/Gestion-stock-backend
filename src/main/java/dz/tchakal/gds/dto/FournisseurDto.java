@@ -1,12 +1,11 @@
 package dz.tchakal.gds.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import dz.tchakal.gds.model.AbstractEntity;
-import dz.tchakal.gds.model.Client;
 import dz.tchakal.gds.model.Fournisseur;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Data
@@ -29,7 +28,7 @@ public class FournisseurDto{
 
     private String photo;
 
-    private Integer entreprise;
+     private Integer idEntreprise;
 
     private List<CommandeFournisseurDto> commandeFournisseurs;
 
@@ -47,7 +46,7 @@ public class FournisseurDto{
                 .telephone(fournisseur.getTelephone())
                 .adresse(AdresseDto.fromEntity(fournisseur.getAdresse()))
                 .photo(fournisseur.getPhoto())
-                .entreprise(fournisseur.getEntreprise())
+                .idEntreprise(fournisseur.getIdEntreprise())
                 .build();
     }
     public static Fournisseur toEntity(FournisseurDto fournisseurDto) {
@@ -63,7 +62,7 @@ public class FournisseurDto{
                 .telephone(fournisseurDto.getTelephone())
                 .adresse(AdresseDto.toEntity(fournisseurDto.getAdresse()))
                 .photo(fournisseurDto.getPhoto())
-                .entreprise(fournisseurDto.getEntreprise())
+                .idEntreprise(fournisseurDto.getIdEntreprise())
                 .build();
     }
 }

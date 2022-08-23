@@ -23,7 +23,7 @@ public class VenteDto {
 
     private String commentaire;
 
-    private Integer entreprise;
+     private Integer idEntreprise;
 
     private List<LigneVenteDto> ligneVente;
 
@@ -37,7 +37,7 @@ public class VenteDto {
                 .code(vente.getCode())
                 .dateVente(vente.getDateVente())
                 .commentaire(vente.getCommentaire())
-                .entreprise(vente.getEntreprise())
+                .idEntreprise(vente.getIdEntreprise())
                 .build();
     }
 
@@ -51,7 +51,7 @@ public class VenteDto {
                 .code(venteDto.getCode())
                 .dateVente(venteDto.getDateVente())
                 .commentaire(venteDto.getCommentaire())
-                .entreprise(venteDto.getEntreprise())
+                .idEntreprise(venteDto.getIdEntreprise())
                 .build();
     }
 

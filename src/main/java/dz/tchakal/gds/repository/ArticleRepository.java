@@ -1,6 +1,5 @@
 package dz.tchakal.gds.repository;
 
-import dz.tchakal.gds.dto.ArticleDto;
 import dz.tchakal.gds.model.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -24,5 +23,5 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
     List<Article> findByCustomQuery(String code);
 
 
-    List<ArticleDto> findAllByCategorieId(Integer idCategotie);
+    List<Article> findAllByCategorieId(Integer idCategotie);
 }

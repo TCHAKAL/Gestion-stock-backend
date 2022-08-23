@@ -32,15 +32,15 @@ public class ApplicationRequestFilter extends OncePerRequestFilter {//OncePerReq
         final String authHeader = request.getHeader(StaticUtil.AUTHORIZATION_HEADER);
         String email = null;
         String jwt = null;
-        String entreprise = null;
+        String idEntreprise = null;
 
         if (StringUtils.hasLength(authHeader) && authHeader.startsWith("Bearer ")) {
             jwt = authHeader.substring(7);//Bearer  a 7 caratères
             System.err.println(jwt);
             email = jwtUtil.extractUsername(jwt);
             System.err.println(email);
-            entreprise = jwtUtil.extractEntreprise(jwt);
-            System.err.println(entreprise);
+            idEntreprise = jwtUtil.extractIdEntreprise(jwt);
+            System.err.println(idEntreprise);
 
         }
         //Vérifier si jwt token est valide
@@ -57,8 +57,8 @@ public class ApplicationRequestFilter extends OncePerRequestFilter {//OncePerReq
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
-        //Stocker l'id de l'entreprise
-        MDC.put("entreprise", entreprise);
+        //Stocker l'id de l'idEntreprise
+        MDC.put("idEntreprise", idEntreprise);
         filterChain.doFilter(request, response);
     }
 

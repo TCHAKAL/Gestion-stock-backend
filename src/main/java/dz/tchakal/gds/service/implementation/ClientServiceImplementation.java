@@ -4,8 +4,11 @@ import dz.tchakal.gds.dto.ClientDto;
 import dz.tchakal.gds.exception.EntityNotFoundException;
 import dz.tchakal.gds.exception.ErrorCode;
 import dz.tchakal.gds.exception.InvalidEntityException;
+import dz.tchakal.gds.exception.InvalidOperationException;
 import dz.tchakal.gds.model.Client;
+import dz.tchakal.gds.model.CommandeClient;
 import dz.tchakal.gds.repository.ClientRepository;
+import dz.tchakal.gds.repository.CommandeClientRepository;
 import dz.tchakal.gds.service.ClientService;
 import dz.tchakal.gds.util.StaticUtil;
 import dz.tchakal.gds.validator.ClientValidator;
@@ -16,15 +19,19 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 @Service("ClientServiceImplementation")
 @Slf4j
 public class ClientServiceImplementation implements ClientService {
 
     private final ClientRepository clientRepository;
+    private CommandeClientRepository commandeClientRepository;
+
 
     @Autowired
-    public ClientServiceImplementation(ClientRepository clientRepository) {
+    public ClientServiceImplementation(ClientRepository clientRepository, CommandeClientRepository commandeClientRepository) {
         this.clientRepository = clientRepository;
+        this.commandeClientRepository = commandeClientRepository;
     }
 
     @Override
@@ -71,9 +78,14 @@ public class ClientServiceImplementation implements ClientService {
     @Override
     public void delete(Integer id) {
         if (id == null) {
-            throw new InvalidEntityException(StaticUtil.AUCUN_ELEMENT_TROUVE, ErrorCode.ARTICLE_NOT_FOUND);
-        } else {
-            clientRepository.deleteById(id);
+            log.error("Impossible de supprimer le client, l'id est null");
+            return;
         }
+        List<CommandeClient> commandeClients = commandeClientRepository.findAllByClientId(id);
+        if (!commandeClients.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer le client, is est utilisé dans des commandes", ErrorCode.CLIENT_ALREADY_IN_USE);
+        }
+        clientRepository.deleteById(id);
+
     }
 }

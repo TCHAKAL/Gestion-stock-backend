@@ -7,6 +7,7 @@ import dz.tchakal.gds.dto.VenteDto;
 import dz.tchakal.gds.exception.EntityNotFoundException;
 import dz.tchakal.gds.exception.ErrorCode;
 import dz.tchakal.gds.exception.InvalidEntityException;
+import dz.tchakal.gds.exception.InvalidOperationException;
 import dz.tchakal.gds.model.Article;
 import dz.tchakal.gds.model.LigneVente;
 import dz.tchakal.gds.model.Vente;
@@ -130,10 +131,14 @@ public class VenteServiceImplementation implements VenteService {
     @Override
     public void delete(Integer id) {
         if (id == null) {
-            throw new InvalidEntityException("La vente avec l'id " + id + " n'est présente dans la BDD", ErrorCode.ARTICLE_NOT_FOUND);
-        } else {
-            venteRepository.deleteById(id);
+            log.error("Impossible de supprimer la vente, l'id est null");
+            return;
         }
+        List<LigneVente> ligneVentes = ligneVenteRepository.findAllByVenteId(id);
+        if (!ligneVentes.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer la vente, elle est utilisée dans des lignes de vente", ErrorCode.VENTE_ALREADY_IN_USE);
+        }
+            venteRepository.deleteById(id);
     }
 
     private void updateMvtStock(LigneVente ligneVente) {
@@ -143,7 +148,7 @@ public class VenteServiceImplementation implements VenteService {
                 .typeMvt(TypeMvt.SORTIE)
                 .sourceMvtStock(SourceMvtStock.VENTE)
                 .quantite(ligneVente.getQuantite())
-                .entreprise(ligneVente.getEntreprise())
+                .idEntreprise(ligneVente.getIdEntreprise())
                 .build();
         mvtStockService.sortieStock(sortieStock);
 

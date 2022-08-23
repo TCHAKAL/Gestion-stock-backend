@@ -43,7 +43,7 @@ public class EntrepriseServiceImplementation implements EntrepriseService {
     public EntrepriseDto save(EntrepriseDto entrepriseDto) {
         List<String> errors = EntrepriseValidator.validate(entrepriseDto);
         if (!errors.isEmpty()) {
-            log.error("L'entreprise n'est pas valide {}"+entrepriseDto);
+            log.error("L'entreprise n'est pas valide {}" + entrepriseDto);
             throw new InvalidEntityException("L'entreprise n'est pas valide", ErrorCode.ARTICLE_NOT_VALIDE, errors);
         }
         //Sauvgarder l'entreprise
@@ -113,9 +113,11 @@ public class EntrepriseServiceImplementation implements EntrepriseService {
     @Override
     public void delete(Integer id) {
         if (id == null) {
-            throw new InvalidEntityException("L'entreprise avec l'id " + id + " n'est présent dans la BDD", ErrorCode.ARTICLE_NOT_FOUND);
-        } else {
-            entrepriseRepository.deleteById(id);
+            log.error("Impossible de supprimer lentreprise, l'id est null");
+
+            return;
         }
+        entrepriseRepository.deleteById(id);
+
     }
 }

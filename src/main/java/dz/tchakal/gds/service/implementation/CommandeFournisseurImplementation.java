@@ -266,7 +266,12 @@ public class CommandeFournisseurImplementation implements CommandeFournisseurSer
     @Override
     public void delete(Integer id) {
         if (id == null) {
-            throw new InvalidEntityException("La commande fournisseur avec l'id " + id + " n'est présent dans la BDD", ErrorCode.COMMANDE_CLIENT_NOT_FOUND);
+            log.error("Impossible de supprimer le client, l'id est null");
+            return;
+        }
+        List<CommandeFournisseur> commandeFournisseurs = commandeFournisseurRepository.findAllByFournisseurId(id);
+        if (!commandeFournisseurs.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer le fournisseur, is est utilisé dans des commandes", ErrorCode.FOURNISSEUR_ALREADY_IN_USE);
         }
         checkIdCommande(id);
         Optional<CommandeFournisseur> commandeFournisseur = commandeFournisseurRepository.findById(id);
@@ -309,7 +314,7 @@ public class CommandeFournisseurImplementation implements CommandeFournisseurSer
                     .typeMvt(TypeMvt.ENTREE)
                     .sourceMvtStock(SourceMvtStock.COMMANDE_FOURNISSEUR)
                     .quantite(ligneCommandeFournisseur.getQuantite())
-                    .entreprise(ligneCommandeFournisseur.getEntreprise())
+                    .idEntreprise(ligneCommandeFournisseur.getIdEntreprise())
                     .build();
             mvtStockService.entreeStock(entreeStock);
         });

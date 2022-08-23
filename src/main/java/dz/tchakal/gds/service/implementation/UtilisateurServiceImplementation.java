@@ -97,6 +97,7 @@ public class UtilisateurServiceImplementation implements UtilisateurService {
     @Override
     public void delete(Integer id) {
         if (id == null) {
+            log.warn("Impossible de supprimer un utilisateur avec un id null");
             throw new InvalidEntityException(StaticUtil.AUCUN_ELEMENT_TROUVE, ErrorCode.ARTICLE_NOT_FOUND);
         } else {
             utilisateurRepository.deleteById(id);

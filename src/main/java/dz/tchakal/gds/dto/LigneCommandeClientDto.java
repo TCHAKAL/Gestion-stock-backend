@@ -1,15 +1,8 @@
 package dz.tchakal.gds.dto;
 
-import dz.tchakal.gds.model.AbstractEntity;
-import dz.tchakal.gds.model.Client;
 import dz.tchakal.gds.model.LigneCommandeClient;
-import dz.tchakal.gds.model.LigneCommandeFournisseur;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import java.math.BigDecimal;
 
 @Data

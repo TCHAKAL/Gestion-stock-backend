@@ -19,7 +19,7 @@ public class JWTUtil {
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
-    public String extractEntreprise(String token) {
+    public String extractIdEntreprise(String token) {
         final Claims claims = extractAllClaims(token);
         return claims.get("entreprise",String.class);
     }

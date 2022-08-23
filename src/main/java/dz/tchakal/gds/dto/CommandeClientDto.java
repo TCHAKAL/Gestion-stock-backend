@@ -27,7 +27,7 @@ public class CommandeClientDto {
 
     private ClientDto client;
 
-    private Integer entreprise;
+     private Integer idEntreprise;
 
 
     @JsonIgnore
@@ -44,7 +44,7 @@ public class CommandeClientDto {
                 .dateCommande(commandeClient.getDateCommande())
                 .etatCommande(commandeClient.getEtatCommande())
                 .client(ClientDto.fromEntity(commandeClient.getClient()))
-                .entreprise(commandeClient.getEntreprise())
+                .idEntreprise(commandeClient.getIdEntreprise())
                 .build();
     }
 
@@ -59,7 +59,7 @@ public class CommandeClientDto {
                 .dateCommande(commandeClientDto.getDateCommande())
                 .etatCommande(commandeClientDto.getEtatCommande())
                 .client(ClientDto.toEntity(commandeClientDto.getClient()))
-                .entreprise(commandeClientDto.getEntreprise())
+                .idEntreprise(commandeClientDto.getIdEntreprise())
                 .build();
     }
 

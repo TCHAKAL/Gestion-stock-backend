@@ -1,13 +1,12 @@
 package dz.tchakal.gds.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import dz.tchakal.gds.model.AbstractEntity;
-import dz.tchakal.gds.model.Adresse;
-import dz.tchakal.gds.model.Categorie;
 import dz.tchakal.gds.model.Client;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Data
@@ -17,7 +16,7 @@ import java.util.List;
 public class ClientDto{
 
     private Integer id;
-    private Integer entreprise;
+     private Integer idEntreprise;
 
     private String nom;
 
@@ -47,7 +46,7 @@ public class ClientDto{
                 .telephone(client.getTelephone())
                 .adresse(AdresseDto.fromEntity(client.getAdresse()))
                 .photo(client.getPhoto())
-                .entreprise(client.getEntreprise())
+                .idEntreprise(client.getIdEntreprise())
                 .build();
     }
     public static Client toEntity(ClientDto clientDto) {
@@ -63,7 +62,7 @@ public class ClientDto{
                 .telephone(clientDto.getTelephone())
                 .adresse(AdresseDto.toEntity(clientDto.getAdresse()))
                 .photo(clientDto.getPhoto())
-                .entreprise(clientDto.getEntreprise())
+                .idEntreprise(clientDto.getIdEntreprise())
                 .build();
     }
 }

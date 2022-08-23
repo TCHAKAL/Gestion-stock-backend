@@ -36,7 +36,7 @@ public class MvtStock extends AbstractEntity{
     @Column(name = "source_mvt")
     private SourceMvtStock sourceMvtStock;
 
-    @Column(name = "entreprise")
-    private Integer entreprise;
+    @Column(name = "id_entreprise")
+    private Integer idEntreprise;
 
 }

@@ -27,7 +27,7 @@ public class CommandeFournisseurDto {
 
     private FournisseurDto fournisseur;
 
-    private Integer entreprise;
+     private Integer idEntreprise;
 
 
     @JsonIgnore
@@ -44,7 +44,7 @@ public class CommandeFournisseurDto {
                 .dateCommande(commandeFournisseur.getDateCommande())
                 .etatCommande(commandeFournisseur.getEtatCommande())
                 .fournisseur(FournisseurDto.fromEntity(commandeFournisseur.getFournisseur()))
-                .entreprise(commandeFournisseur.getEntreprise())
+                .idEntreprise(commandeFournisseur.getIdEntreprise())
                 .build();
     }
 
@@ -59,7 +59,7 @@ public class CommandeFournisseurDto {
                 .dateCommande(commandeFournisseurDto.getDateCommande())
                 .etatCommande(commandeFournisseurDto.getEtatCommande())
                 .fournisseur(FournisseurDto.toEntity(commandeFournisseurDto.getFournisseur()))
-                .entreprise(commandeFournisseurDto.getEntreprise())
+                .idEntreprise(commandeFournisseurDto.getIdEntreprise())
                 .build();
     }
 
