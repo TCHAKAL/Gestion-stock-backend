@@ -31,8 +31,8 @@ public class ApplicationRequestFilter extends OncePerRequestFilter {//OncePerReq
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         final String authHeader = request.getHeader(StaticUtil.AUTHORIZATION_HEADER);
         String email = null;
-        String      jwt = null;
-        String  entreprise = null;
+        String jwt = null;
+        String entreprise = null;
 
         if (StringUtils.hasLength(authHeader) && authHeader.startsWith("Bearer ")) {
             jwt = authHeader.substring(7);//Bearer  a 7 caratères
@@ -47,9 +47,9 @@ public class ApplicationRequestFilter extends OncePerRequestFilter {//OncePerReq
         if (StringUtils.hasLength(email) && SecurityContextHolder.getContext().getAuthentication() == null) {
             //Récupérer l'utilisateur
             UserDetails userDetails = this.userDetailService.loadUserByUsername(email);
-            System.err.println(" getUsername "+userDetails.getUsername());
-            System.err.println(" getPassword "+userDetails.getPassword());
-            System.err.println(" getAuthorities "+userDetails.getAuthorities());
+            System.err.println(" getUsername " + userDetails.getUsername());
+            System.err.println(" getPassword " + userDetails.getPassword());
+            System.err.println(" getAuthorities " + userDetails.getAuthorities());
             if (jwtUtil.validateToken(jwt, userDetails)) {
                 System.err.println("validateToken");
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getAuthorities());

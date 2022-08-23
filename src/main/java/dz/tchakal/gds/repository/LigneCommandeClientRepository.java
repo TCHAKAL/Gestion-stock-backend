@@ -11,4 +11,5 @@ public interface LigneCommandeClientRepository extends JpaRepository<LigneComman
 
 
     List<LigneCommandeClient> findAllByCommandeClientId(Integer idCommande);
+    List<LigneCommandeClient> findAllByArticleId(Integer idArticle);
 }

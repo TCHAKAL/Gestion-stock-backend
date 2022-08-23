@@ -1,6 +1,9 @@
 package dz.tchakal.gds.controller.api;
 
 import dz.tchakal.gds.dto.ArticleDto;
+import dz.tchakal.gds.dto.LigneCommandeClientDto;
+import dz.tchakal.gds.dto.LigneCommandeFournisseurDto;
+import dz.tchakal.gds.dto.LigneVenteDto;
 import dz.tchakal.gds.util.StaticRoot;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -52,4 +55,16 @@ public interface ArticleApi {
             @ApiResponse(code = 404, message = "L'objet article n'est pas supprimé de la BDD")
     })
     void delete(@PathVariable("idArticle") Integer id);
+    @GetMapping(value = StaticRoot.APP_ROOT + "/articles/filter/categorie/{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
+
+    List<ArticleDto> findAllByCategorie(@PathVariable("idArticle")Integer idCategorie);
+    @GetMapping(value = StaticRoot.APP_ROOT + "/articles/historique/vente/{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
+
+    List<LigneVenteDto> findHistoriqueVente(@PathVariable("idArticle")Integer idArticle);
+    @GetMapping(value = StaticRoot.APP_ROOT + "/articles/historique/commandeClient/{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
+
+    List<LigneCommandeClientDto> findHistoriqueCommandeClient(@PathVariable("idArticle")Integer idArticle);
+    @GetMapping(value = StaticRoot.APP_ROOT + "/articles/historique/commandeFournisseur/{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
+
+    List<LigneCommandeFournisseurDto> findHistoriqueCommandeFournisseur(@PathVariable("idArticle")Integer idArticle);
 }
