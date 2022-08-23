@@ -1,5 +1,6 @@
 package dz.tchakal.gds.service;
 
+import dz.tchakal.gds.dto.ChangerMotPasseUtilisateurDto;
 import dz.tchakal.gds.dto.UtilisateurDto;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public interface UtilisateurService {
     //UtilisateurDto findByNomAndPrenom(String nom,String prenom);
 
     UtilisateurDto findByEmail(String email);
+    UtilisateurDto changerMotPasse(ChangerMotPasseUtilisateurDto changerMotPasseUtilisateurDto);
 
     UtilisateurDto findByEmailAndMotPasse(String email,String motPasse);
 
