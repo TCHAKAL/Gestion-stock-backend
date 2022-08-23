@@ -1,13 +1,14 @@
 package dz.tchakal.gds.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import dz.tchakal.gds.model.AbstractEntity;
-import dz.tchakal.gds.model.Client;
 import dz.tchakal.gds.model.CommandeClient;
-import lombok.*;
+import dz.tchakal.gds.model.enumeration.EtatCommande;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -20,15 +21,17 @@ public class CommandeClientDto {
 
     private String code;
 
-    private Date dateCommande;
+    private Instant dateCommande;
+
+    private EtatCommande etatCommande;
 
     private ClientDto client;
-
-    private List<LigneCommandeClientDto> ligneCommandeClients;
 
     private Integer entreprise;
 
 
+    @JsonIgnore
+    private List<LigneCommandeClientDto> ligneCommandeClients;
 
     public static CommandeClientDto fromEntity(CommandeClient commandeClient) {
         if (commandeClient == null) {
@@ -39,10 +42,12 @@ public class CommandeClientDto {
                 .id(commandeClient.getId())
                 .code(commandeClient.getCode())
                 .dateCommande(commandeClient.getDateCommande())
+                .etatCommande(commandeClient.getEtatCommande())
                 .client(ClientDto.fromEntity(commandeClient.getClient()))
                 .entreprise(commandeClient.getEntreprise())
                 .build();
     }
+
     public static CommandeClient toEntity(CommandeClientDto commandeClientDto) {
         if (commandeClientDto == null) {
             //TODO throw an exception
@@ -52,8 +57,13 @@ public class CommandeClientDto {
                 .id(commandeClientDto.getId())
                 .code(commandeClientDto.getCode())
                 .dateCommande(commandeClientDto.getDateCommande())
+                .etatCommande(commandeClientDto.getEtatCommande())
                 .client(ClientDto.toEntity(commandeClientDto.getClient()))
                 .entreprise(commandeClientDto.getEntreprise())
                 .build();
+    }
+
+    public boolean isCommandeLivree() {
+        return EtatCommande.LIVREE.equals(this.getEtatCommande());
     }
 }

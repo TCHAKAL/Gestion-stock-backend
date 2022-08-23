@@ -1,9 +1,10 @@
 package dz.tchakal.gds.model;
 
+import dz.tchakal.gds.model.enumeration.EtatCommande;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -22,7 +23,10 @@ public class CommandeClient extends AbstractEntity{
     private String code;
 
     @Column(name="date_commande")
-    private Date dateCommande;
+    private Instant dateCommande;
+
+    @Column(name="etat_commande")
+    private EtatCommande etatCommande;
     @ManyToOne
     @JoinColumn(name = "id_client")
     private Client client;

@@ -1,11 +1,9 @@
 package dz.tchakal.gds.dto;
 
 import dz.tchakal.gds.model.*;
+import dz.tchakal.gds.model.enumeration.TypeMvt;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.Instant;
 

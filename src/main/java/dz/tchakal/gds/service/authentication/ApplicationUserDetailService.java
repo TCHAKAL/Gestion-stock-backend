@@ -23,7 +23,9 @@ public class ApplicationUserDetailService implements UserDetailsService {
         UtilisateurDto utilisateur = utilisateurService.findByEmail(email);
         //Charger la liste des privileges
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        if (utilisateur.getRoles() != null) {
+        if (utilisateur.getRoles() == null) {
+            authorities.add(new SimpleGrantedAuthority("ADMIN"));
+        }else {
             utilisateur.getRoles().forEach(role -> {
                 authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
             });

@@ -26,9 +26,6 @@ public class EntrepriseDto {
 
     private Adresse adresse;
 
-
-
-
     @JsonIgnore
     private List<Utilisateur> utilisateurs;
 

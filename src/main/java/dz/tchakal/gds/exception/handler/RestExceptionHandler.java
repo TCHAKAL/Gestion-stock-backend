@@ -40,6 +40,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorDto,badRequest);
     }
 
+    //TODO handle invalid operation exception
+
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ErrorDto> handleException(BadCredentialsException exception, WebRequest webRequest){
         final HttpStatus badRequest = HttpStatus.BAD_REQUEST;

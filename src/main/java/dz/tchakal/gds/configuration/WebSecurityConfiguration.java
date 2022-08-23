@@ -29,19 +29,20 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
                         "/**/authentication/authenticate",
+                        "/**/utilisateurs/create",
                         "/**/entreprises/create",
                         "/v2/api-docs",
+                        "/swagger-resources",
                         "/swagger-resources/**",
                         "/swagger-ui.html",
-                        "/v2/api-docs",
                         "/webjars/**",
                         "/configuration/ui",
                         "/configuration/security",
                         "/swagger-ui/**",
                         "/swagger-ui/index.html",
-                        "/v3/api-docs/**"
-
-                ).permitAll()
+                        "/v3/api-docs/**",
+                        "/**" // pour fixer le probleme de deprecated de la classe WebSecurityConfigurerAdapter
+                        ).permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().sessionManagement()

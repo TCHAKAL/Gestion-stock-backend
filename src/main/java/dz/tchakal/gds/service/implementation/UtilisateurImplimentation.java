@@ -33,7 +33,7 @@ public class UtilisateurImplimentation implements UtilisateurService {
     public UtilisateurDto save(UtilisateurDto utilisateurDto) {
         List<String> errors = UtilisateurValidator.validate(utilisateurDto);
         if (!errors.isEmpty()) {
-            log.error("Le utilisateur est invalide");
+            log.error("L'utilisateur est invalide");
             throw new InvalidEntityException("Le utilisateur est invalide", ErrorCode.CATEGORIE_NOT_VALIDE, errors);
         }
         return UtilisateurDto.fromEntity(utilisateurRepository.save(UtilisateurDto.toEntity(utilisateurDto)));
@@ -42,7 +42,7 @@ public class UtilisateurImplimentation implements UtilisateurService {
     @Override
     public UtilisateurDto findById(Integer id) {
         if (id == null) {
-            log.error("Le utilisateur avec l'id " + id + " n'est pas présent dans la BDD");
+            log.error("L'utilisateur avec l'id " + id + " n'est pas présent dans la BDD");
             return null;
         }
         Optional<Utilisateur> utilisateur = utilisateurRepository.findById(id);
@@ -53,7 +53,7 @@ public class UtilisateurImplimentation implements UtilisateurService {
     @Override
     public UtilisateurDto findByEmail(String email) {
         if (email == null) {
-            log.error("Le utilisateur avec l'email " + email + " n'est pas présent dans la BDD");
+            log.error("L'utilisateur avec l'email " + email + " n'est pas présent dans la BDD");
             return null;
         }
         return utilisateurRepository.findUtilisateurByEmail(email)

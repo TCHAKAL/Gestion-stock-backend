@@ -1,7 +1,6 @@
 package dz.tchakal.gds.dto;
 
 import dz.tchakal.gds.model.Adresse;
-import dz.tchakal.gds.model.Role;
 import dz.tchakal.gds.model.Utilisateur;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,10 +32,9 @@ public class UtilisateurDto {
 
     private String photo;
 
-
     private EntrepriseDto entreprise;
 
-    private List<Role> roles;
+    private List<RoleDto> roles;
 
 
     public static UtilisateurDto fromEntity(Utilisateur utilisateur) {

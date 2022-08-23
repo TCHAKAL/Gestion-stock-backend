@@ -1,5 +1,6 @@
 package dz.tchakal.gds.model;
 
+import dz.tchakal.gds.model.enumeration.TypeMvt;
 import lombok.*;
 
 import javax.persistence.*;

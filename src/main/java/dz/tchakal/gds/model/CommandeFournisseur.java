@@ -1,5 +1,6 @@
 package dz.tchakal.gds.model;
 
+import dz.tchakal.gds.model.enumeration.EtatCommande;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,6 +28,9 @@ public class CommandeFournisseur extends AbstractEntity{
     @ManyToOne
     @JoinColumn(name = "fournisseur")
     private Fournisseur fournisseur;
+
+    @Column(name="etat_commande")
+    private EtatCommande etatCommande;
 
     @OneToMany(mappedBy = "commandeFournisseur")
     private List<LigneCommandeFournisseur> ligneCommandeFournisseurs;

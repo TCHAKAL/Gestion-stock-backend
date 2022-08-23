@@ -1,10 +1,7 @@
 package dz.tchakal.gds.dto;
 
 import dz.tchakal.gds.model.Role;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @Builder
