@@ -30,4 +30,5 @@ public interface StaticRoot {
     String VENTE_ENDPOINT_DELETE = VENTE_ENDPOINT + "/delete/{idVente}";
     String AUTHENTICATION_ENDPOINT = APP_ROOT+"/authentication";
 
+    String MVT_ENDPOINT = APP_ROOT+"/mouvements";
 }

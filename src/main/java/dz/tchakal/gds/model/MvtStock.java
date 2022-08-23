@@ -1,5 +1,6 @@
 package dz.tchakal.gds.model;
 
+import dz.tchakal.gds.model.enumeration.SourceMvtStock;
 import dz.tchakal.gds.model.enumeration.TypeMvt;
 import lombok.*;
 
@@ -31,6 +32,9 @@ public class MvtStock extends AbstractEntity{
 
     @Column(name = "type_mvt")
     private TypeMvt typeMvt;
+
+    @Column(name = "source_mvt")
+    private SourceMvtStock sourceMvtStock;
 
     @Column(name = "entreprise")
     private Integer entreprise;

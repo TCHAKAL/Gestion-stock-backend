@@ -1,6 +1,7 @@
 package dz.tchakal.gds.dto;
 
 import dz.tchakal.gds.model.*;
+import dz.tchakal.gds.model.enumeration.SourceMvtStock;
 import dz.tchakal.gds.model.enumeration.TypeMvt;
 import lombok.*;
 
@@ -23,6 +24,8 @@ public class MvtStockDto {
 
     private TypeMvt typeMvt;
 
+    private SourceMvtStock sourceMvtStock;
+
     private Integer entreprise;
 
     public static MvtStockDto fromEntity(MvtStock mvtStock) {
@@ -36,6 +39,7 @@ public class MvtStockDto {
                 .quantite(mvtStock.getQuantite())
                 .dateMvt(mvtStock.getDateMvt())
                 .typeMvt(mvtStock.getTypeMvt())
+                .sourceMvtStock(mvtStock.getSourceMvtStock())
                 .entreprise(mvtStock.getEntreprise())
                 .build();
     }
@@ -51,6 +55,7 @@ public class MvtStockDto {
                 .quantite(mvtStockDto.getQuantite())
                 .dateMvt(mvtStockDto.getDateMvt())
                 .typeMvt(mvtStockDto.getTypeMvt())
+                .sourceMvtStock(mvtStockDto.getSourceMvtStock())
                 .entreprise(mvtStockDto.getEntreprise())
                 .build();
     }

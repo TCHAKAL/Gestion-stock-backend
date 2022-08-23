@@ -18,14 +18,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Service("UtilisateurImplimentation")
+@Service("UtilisateurImplementation")
 @Slf4j
-public class UtilisateurImplimentation implements UtilisateurService {
+public class UtilisateurImplementation implements UtilisateurService {
 
     private final UtilisateurRepository utilisateurRepository;
 
     @Autowired
-    public UtilisateurImplimentation(UtilisateurRepository utilisateurRepository) {
+    public UtilisateurImplementation(UtilisateurRepository utilisateurRepository) {
         this.utilisateurRepository = utilisateurRepository;
     }
 

@@ -1,6 +1,8 @@
 package dz.tchakal.gds.service.implementation;
 
+import dz.tchakal.gds.dto.ArticleDto;
 import dz.tchakal.gds.dto.LigneVenteDto;
+import dz.tchakal.gds.dto.MvtStockDto;
 import dz.tchakal.gds.dto.VenteDto;
 import dz.tchakal.gds.exception.EntityNotFoundException;
 import dz.tchakal.gds.exception.ErrorCode;
@@ -8,9 +10,12 @@ import dz.tchakal.gds.exception.InvalidEntityException;
 import dz.tchakal.gds.model.Article;
 import dz.tchakal.gds.model.LigneVente;
 import dz.tchakal.gds.model.Vente;
+import dz.tchakal.gds.model.enumeration.SourceMvtStock;
+import dz.tchakal.gds.model.enumeration.TypeMvt;
 import dz.tchakal.gds.repository.ArticleRepository;
 import dz.tchakal.gds.repository.LigneVenteRepository;
 import dz.tchakal.gds.repository.VenteRepository;
+import dz.tchakal.gds.service.MvtStockService;
 import dz.tchakal.gds.service.VenteService;
 import dz.tchakal.gds.validator.LigneVenteValidator;
 import dz.tchakal.gds.validator.VenteValidator;
@@ -28,39 +33,41 @@ import java.util.stream.Collectors;
 @Slf4j
 public class VenteServiceImplementation implements VenteService {
 
-    private VenteRepository venteRepository;
-    private ArticleRepository articleRepository;
-    private LigneVenteRepository ligneVenteRepository;
+    private final VenteRepository venteRepository;
+    private final ArticleRepository articleRepository;
+    private final LigneVenteRepository ligneVenteRepository;
+    private final MvtStockService mvtStockService;
 
     @Autowired
-    public VenteServiceImplementation(VenteRepository venteRepository, ArticleRepository articleRepository, LigneVenteRepository ligneVenteRepository) {
+    public VenteServiceImplementation(VenteRepository venteRepository, ArticleRepository articleRepository, LigneVenteRepository ligneVenteRepository, MvtStockService mvtStockService) {
         this.venteRepository = venteRepository;
         this.articleRepository = articleRepository;
         this.ligneVenteRepository = ligneVenteRepository;
+        this.mvtStockService = mvtStockService;
     }
 
     @Override
     public VenteDto save(VenteDto venteDto) {
         //Valider la vente
         List<String> errors = VenteValidator.validate(venteDto);
-        if(!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             log.error("La vente n'est pas valide");
-            throw new InvalidEntityException("La vente n'est pas valide", ErrorCode.VENTE_NOT_VALIDE,errors);
+            throw new InvalidEntityException("La vente n'est pas valide", ErrorCode.VENTE_NOT_VALIDE, errors);
         }
 
         //Valider les lignes de vente
         List<String> articleErrors = new ArrayList<>();
         venteDto.getLigneVente().forEach(ligneVenteDto -> {
             Optional<Article> article = articleRepository.findById(ligneVenteDto.getArticle().getId());
-            if(!article.isPresent()){
-                articleErrors.add("Aucun article avec l'id "+ligneVenteDto.getArticle().getId()+"n'est présent dans la BDD");
-            }else{
+            if (!article.isPresent()) {
+                articleErrors.add("Aucun article avec l'id " + ligneVenteDto.getArticle().getId() + "n'est présent dans la BDD");
+            } else {
                 articleErrors.addAll(LigneVenteValidator.validate(ligneVenteDto));
             }
         });
-        if(!articleErrors.isEmpty()){
+        if (!articleErrors.isEmpty()) {
             log.error("La liste des lignes articles n'est pas valide");
-            throw new InvalidEntityException("La liste des lignes articles n'est pas valide", ErrorCode.ARTICLE_NOT_VALIDE,articleErrors);
+            throw new InvalidEntityException("La liste des lignes articles n'est pas valide", ErrorCode.ARTICLE_NOT_VALIDE, articleErrors);
         }
 
         Vente savedVente = venteRepository.save(VenteDto.toEntity(venteDto));
@@ -68,50 +75,50 @@ public class VenteServiceImplementation implements VenteService {
             LigneVente ligneVente = LigneVenteDto.toEntity(ligneVenteDto);
             ligneVente.setVente(savedVente);
             ligneVenteRepository.save(ligneVente);
+            updateMvtStock(ligneVente);
 
         });
-
         return VenteDto.fromEntity(savedVente);
     }
 
     @Override
     public VenteDto findById(Integer id) {
-        if(id==null){
+        if (id == null) {
             log.error("Vente ID est null");
             return null;
         }
         Optional<Vente> vente = venteRepository.findById(id);
         VenteDto venteDto = VenteDto.fromEntity(vente.get());
         return Optional.of(venteDto)
-                .orElseThrow(()->new EntityNotFoundException("Aucun vente avec l'id = "+id+" n'est pas présente dans la BDD",ErrorCode.ARTICLE_NOT_FOUND));
+                .orElseThrow(() -> new EntityNotFoundException("Aucun vente avec l'id = " + id + " n'est pas présente dans la BDD", ErrorCode.ARTICLE_NOT_FOUND));
     }
 
     @Override
     public VenteDto findByCode(String code) {
-        if(code==null){
+        if (code == null) {
             log.error("Vente code est null");
             return null;
         }
         Optional<Vente> vente = venteRepository.findByCode(code);
         VenteDto venteDto = VenteDto.fromEntity(vente.get());
         return Optional.of(venteDto)
-                .orElseThrow(()->new EntityNotFoundException("Aucune vente avec le code = "+code+" n'est pas présente dans la BDD",ErrorCode.ARTICLE_NOT_FOUND));
+                .orElseThrow(() -> new EntityNotFoundException("Aucune vente avec le code = " + code + " n'est pas présente dans la BDD", ErrorCode.ARTICLE_NOT_FOUND));
 
     }
 
     @Override
     public VenteDto findByDateVente(Instant dateVente) {
-        if(dateVente==null){
+        if (dateVente == null) {
             log.error("Vente dateVente est null");
             return null;
         }
         Optional<Vente> vente = venteRepository.findByDateVente(dateVente);
         VenteDto venteDto = VenteDto.fromEntity(vente.get());
         return Optional.of(venteDto)
-                .orElseThrow(()->new EntityNotFoundException("Aucune vente avec la date = "+dateVente+" n'est pas présente dans la BDD",ErrorCode.ARTICLE_NOT_FOUND));
+                .orElseThrow(() -> new EntityNotFoundException("Aucune vente avec la date = " + dateVente + " n'est pas présente dans la BDD", ErrorCode.ARTICLE_NOT_FOUND));
 
     }
-    
+
     @Override
     public List<VenteDto> findAll() {
         return venteRepository.findAll()
@@ -122,10 +129,23 @@ public class VenteServiceImplementation implements VenteService {
 
     @Override
     public void delete(Integer id) {
-        if(id==null){
-            throw new InvalidEntityException("La vente avec l'id "+id+" n'est présente dans la BDD",ErrorCode.ARTICLE_NOT_FOUND);
-        }else{
+        if (id == null) {
+            throw new InvalidEntityException("La vente avec l'id " + id + " n'est présente dans la BDD", ErrorCode.ARTICLE_NOT_FOUND);
+        } else {
             venteRepository.deleteById(id);
         }
+    }
+
+    private void updateMvtStock(LigneVente ligneVente) {
+       MvtStockDto sortieStock = MvtStockDto.builder()
+                .article(ArticleDto.fromEntity(ligneVente.getArticle()))
+                .dateMvt(Instant.now())
+                .typeMvt(TypeMvt.SORTIE)
+                .sourceMvtStock(SourceMvtStock.VENTE)
+                .quantite(ligneVente.getQuantite())
+                .entreprise(ligneVente.getEntreprise())
+                .build();
+        mvtStockService.sortieStock(sortieStock);
+
     }
 }

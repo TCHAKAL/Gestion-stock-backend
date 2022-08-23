@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 public class UtilisateurController implements UtilisateurApi {
 
-    @Qualifier("UtilisateurImplimentation")
+    @Qualifier("UtilisateurImplementation")
     private UtilisateurService utilisateurService;
 
     @Autowired

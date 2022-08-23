@@ -16,14 +16,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-@Service("ClientServiceImplimentation")
+@Service("ClientServiceImplementation")
 @Slf4j
-public class ClientServiceImplimentation implements ClientService {
+public class ClientServiceImplementation implements ClientService {
 
     private final ClientRepository clientRepository;
 
     @Autowired
-    public ClientServiceImplimentation(ClientRepository clientRepository) {
+    public ClientServiceImplementation(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
 

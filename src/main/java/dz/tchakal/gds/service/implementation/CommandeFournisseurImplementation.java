@@ -1,23 +1,20 @@
 package dz.tchakal.gds.service.implementation;
 
-import dz.tchakal.gds.dto.ArticleDto;
-import dz.tchakal.gds.dto.FournisseurDto;
-import dz.tchakal.gds.dto.CommandeFournisseurDto;
-import dz.tchakal.gds.dto.LigneCommandeFournisseurDto;
+import dz.tchakal.gds.dto.*;
 import dz.tchakal.gds.exception.EntityNotFoundException;
 import dz.tchakal.gds.exception.ErrorCode;
 import dz.tchakal.gds.exception.InvalidEntityException;
 import dz.tchakal.gds.exception.InvalidOperationException;
-import dz.tchakal.gds.model.Article;
-import dz.tchakal.gds.model.Fournisseur;
-import dz.tchakal.gds.model.CommandeFournisseur;
-import dz.tchakal.gds.model.LigneCommandeFournisseur;
+import dz.tchakal.gds.model.*;
 import dz.tchakal.gds.model.enumeration.EtatCommande;
+import dz.tchakal.gds.model.enumeration.SourceMvtStock;
+import dz.tchakal.gds.model.enumeration.TypeMvt;
 import dz.tchakal.gds.repository.ArticleRepository;
 import dz.tchakal.gds.repository.FournisseurRepository;
 import dz.tchakal.gds.repository.CommandeFournisseurRepository;
 import dz.tchakal.gds.repository.LigneCommandeFournisseurRepository;
 import dz.tchakal.gds.service.CommandeFournisseurService;
+import dz.tchakal.gds.service.MvtStockService;
 import dz.tchakal.gds.util.StaticUtil;
 import dz.tchakal.gds.validator.ArticleValidator;
 import dz.tchakal.gds.validator.CommandeFournisseurValidator;
@@ -28,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -41,13 +39,16 @@ public class CommandeFournisseurImplementation implements CommandeFournisseurSer
     private final LigneCommandeFournisseurRepository ligneCommandeFournisseurRepository;
     private final FournisseurRepository fournisseurRepository;
     private final ArticleRepository articleRepository;
+    private final MvtStockService mvtStockService;
+
 
     @Autowired
-    public CommandeFournisseurImplementation(CommandeFournisseurRepository commandeFournisseurRepository, LigneCommandeFournisseurRepository ligneCommandeFournisseurRepository, FournisseurRepository fournisseurRepository, ArticleRepository articleRepository) {
+    public CommandeFournisseurImplementation(CommandeFournisseurRepository commandeFournisseurRepository, LigneCommandeFournisseurRepository ligneCommandeFournisseurRepository, FournisseurRepository fournisseurRepository, ArticleRepository articleRepository, MvtStockService mvtStockService) {
         this.commandeFournisseurRepository = commandeFournisseurRepository;
         this.ligneCommandeFournisseurRepository = ligneCommandeFournisseurRepository;
         this.fournisseurRepository = fournisseurRepository;
         this.articleRepository = articleRepository;
+        this.mvtStockService = mvtStockService;
     }
 
     @Override
@@ -114,8 +115,11 @@ public class CommandeFournisseurImplementation implements CommandeFournisseurSer
             throw new InvalidOperationException("Impossible de modifier la commande lorsqu'elle est livree", ErrorCode.COMMANDE_CLIENT_NOT_VALIDE);
         }
         commandeFournisseurDto.setEtatCommande(etatCommande);
-
-        return CommandeFournisseurDto.fromEntity(commandeFournisseurRepository.save(CommandeFournisseurDto.toEntity(commandeFournisseurDto)));
+        CommandeFournisseur savedCommandeFournisseur = commandeFournisseurRepository.save(CommandeFournisseurDto.toEntity(commandeFournisseurDto));
+        if (commandeFournisseurDto.isCommandeLivree()) {
+            updateMvtStock(idCommande);
+        }
+        return CommandeFournisseurDto.fromEntity(savedCommandeFournisseur);
     }
 
     @Override
@@ -294,5 +298,20 @@ public class CommandeFournisseurImplementation implements CommandeFournisseurSer
             log.error("Ligne Commande fournisseur id est null");
             throw new InvalidOperationException("Impossible de modifier l'article, l'id de la ligne est  null !", ErrorCode.COMMANDE_CLIENT_NOT_VALIDE);
         }
+    }
+
+    private void updateMvtStock(Integer idCommande) {
+        List<LigneCommandeFournisseur> ligneCommandeFournisseurs = ligneCommandeFournisseurRepository.findAllByCommandeFournisseurId(idCommande);
+        ligneCommandeFournisseurs.forEach(ligneCommandeFournisseur -> {
+            MvtStockDto entreeStock = MvtStockDto.builder()
+                    .article(ArticleDto.fromEntity(ligneCommandeFournisseur.getArticle()))
+                    .dateMvt(Instant.now())
+                    .typeMvt(TypeMvt.ENTREE)
+                    .sourceMvtStock(SourceMvtStock.COMMANDE_FOURNISSEUR)
+                    .quantite(ligneCommandeFournisseur.getQuantite())
+                    .entreprise(ligneCommandeFournisseur.getEntreprise())
+                    .build();
+            mvtStockService.entreeStock(entreeStock);
+        });
     }
 }

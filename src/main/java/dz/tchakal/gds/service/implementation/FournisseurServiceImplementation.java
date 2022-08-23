@@ -17,14 +17,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Service("FournisseurServiceImplimentation")
+@Service("FournisseurServiceImplementation")
 @Slf4j
-public class FournisseurServiceImplimentation implements FournisseurService {
+public class FournisseurServiceImplementation implements FournisseurService {
 
     private final FournisseurRepository fournisseurRepository;
 
     @Autowired
-    public FournisseurServiceImplimentation(FournisseurRepository fournisseurRepository) {
+    public FournisseurServiceImplementation(FournisseurRepository fournisseurRepository) {
         this.fournisseurRepository = fournisseurRepository;
     }
 

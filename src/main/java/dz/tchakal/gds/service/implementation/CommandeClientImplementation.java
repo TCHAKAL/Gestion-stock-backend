@@ -1,23 +1,20 @@
 package dz.tchakal.gds.service.implementation;
 
-import dz.tchakal.gds.dto.ArticleDto;
-import dz.tchakal.gds.dto.ClientDto;
-import dz.tchakal.gds.dto.CommandeClientDto;
-import dz.tchakal.gds.dto.LigneCommandeClientDto;
+import dz.tchakal.gds.dto.*;
 import dz.tchakal.gds.exception.EntityNotFoundException;
 import dz.tchakal.gds.exception.ErrorCode;
 import dz.tchakal.gds.exception.InvalidEntityException;
 import dz.tchakal.gds.exception.InvalidOperationException;
-import dz.tchakal.gds.model.Article;
-import dz.tchakal.gds.model.Client;
-import dz.tchakal.gds.model.CommandeClient;
-import dz.tchakal.gds.model.LigneCommandeClient;
+import dz.tchakal.gds.model.*;
 import dz.tchakal.gds.model.enumeration.EtatCommande;
+import dz.tchakal.gds.model.enumeration.SourceMvtStock;
+import dz.tchakal.gds.model.enumeration.TypeMvt;
 import dz.tchakal.gds.repository.ArticleRepository;
 import dz.tchakal.gds.repository.ClientRepository;
 import dz.tchakal.gds.repository.CommandeClientRepository;
 import dz.tchakal.gds.repository.LigneCommandeClientRepository;
 import dz.tchakal.gds.service.CommandeClientService;
+import dz.tchakal.gds.service.MvtStockService;
 import dz.tchakal.gds.util.StaticUtil;
 import dz.tchakal.gds.validator.ArticleValidator;
 import dz.tchakal.gds.validator.CommandeClientValidator;
@@ -28,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -41,13 +39,15 @@ public class CommandeClientImplementation implements CommandeClientService {
     private final LigneCommandeClientRepository ligneCommandeClientRepository;
     private final ClientRepository clientRepository;
     private final ArticleRepository articleRepository;
+    private final MvtStockService mvtStockService;
 
     @Autowired
-    public CommandeClientImplementation(CommandeClientRepository commandeClientRepository, LigneCommandeClientRepository ligneCommandeClientRepository, ClientRepository clientRepository, ArticleRepository articleRepository) {
+    public CommandeClientImplementation(CommandeClientRepository commandeClientRepository, LigneCommandeClientRepository ligneCommandeClientRepository, ClientRepository clientRepository, ArticleRepository articleRepository, MvtStockService mvtStockService) {
         this.commandeClientRepository = commandeClientRepository;
         this.ligneCommandeClientRepository = ligneCommandeClientRepository;
         this.clientRepository = clientRepository;
         this.articleRepository = articleRepository;
+        this.mvtStockService = mvtStockService;
     }
 
     @Override
@@ -114,8 +114,11 @@ public class CommandeClientImplementation implements CommandeClientService {
             throw new InvalidOperationException("Impossible de modifier la commande lorsqu'elle est livree", ErrorCode.COMMANDE_CLIENT_NOT_VALIDE);
         }
         commandeClientDto.setEtatCommande(etatCommande);
-
-        return CommandeClientDto.fromEntity(commandeClientRepository.save(CommandeClientDto.toEntity(commandeClientDto)));
+        CommandeClient savedCommandeClient = commandeClientRepository.save(CommandeClientDto.toEntity(commandeClientDto));
+        if (commandeClientDto.isCommandeLivree()){
+            updateMvtStock(idCommande);
+        }
+        return CommandeClientDto.fromEntity(savedCommandeClient);
     }
 
     @Override
@@ -294,5 +297,20 @@ public class CommandeClientImplementation implements CommandeClientService {
             log.error("Ligne Commande client id est null");
             throw new InvalidOperationException("Impossible de modifier l'article, l'id de la ligne est  null !", ErrorCode.COMMANDE_CLIENT_NOT_VALIDE);
         }
+    }
+
+    private void updateMvtStock(Integer idCommande) {
+        List<LigneCommandeClient> ligneCommandeClients = ligneCommandeClientRepository.findAllByCommandeClientId(idCommande);
+        ligneCommandeClients.forEach(ligneCommandeClient -> {
+            MvtStockDto sortieStock = MvtStockDto.builder()
+                    .article(ArticleDto.fromEntity(ligneCommandeClient.getArticle()))
+                    .dateMvt(Instant.now())
+                    .typeMvt(TypeMvt.SORTIE)
+                    .sourceMvtStock(SourceMvtStock.COMMANDE_CLIENT)
+                    .quantite(ligneCommandeClient.getQuantite())
+                    .entreprise(ligneCommandeClient.getEntreprise())
+                    .build();
+            mvtStockService.sortieStock(sortieStock);
+        });
     }
 }

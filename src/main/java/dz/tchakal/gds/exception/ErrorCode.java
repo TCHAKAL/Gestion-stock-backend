@@ -29,7 +29,7 @@ public enum ErrorCode {
 
     //Gestion des mouvements
     MVT_NOT_FOUND(11000),
-
+     MVT_NOT_VALIDE(11001),
     //Administration
     ENTREPRISE_NOT_FOUND(12000),
     UTILISATEUR_NOT_FOUND(13000),
