@@ -17,7 +17,7 @@ Frontend avec Angular 10
 4. Envorinnement de travail : 
  - Java 8 ou 11
  - IDE intellij
- - MySQL
+ - Postgresql
  
 5. La future application 
   - Concevoir et développer une application Gestion de stock
