@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="Gestion-stock-backend" />
         <module name="spring-boot-jpa-postgresql" />
         <module name="GestionStockBackEnd" />
       </profile>
@@ -14,6 +15,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Gestion-stock-backend" options="-parameters" />
       <module name="GestionStockBackEnd" options="-parameters" />
       <module name="spring-boot-jpa-postgresql" options="-parameters" />
     </option>
