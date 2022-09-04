@@ -1,13 +1,15 @@
 package dz.tchakal.gds.dto;
 
 import dz.tchakal.gds.model.Adresse;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-
-@Data
 @Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class AdresseDto {
 
     private Integer id;
