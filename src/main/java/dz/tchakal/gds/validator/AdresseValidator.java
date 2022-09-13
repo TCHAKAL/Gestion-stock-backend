@@ -12,6 +12,7 @@ public class AdresseValidator {
     public static List<String> validate(AdresseDto adresseDto){
         List<String> errors = new ArrayList<>();
         if (adresseDto == null) {
+            errors.add(StaticUtil.ENTITE_NULL);
             errors.add(StaticUtil.ADRESSE1_OBLIGATOIRE);
             errors.add(StaticUtil.VILLE_OBLIGATOIRE);
             errors.add(StaticUtil.CODE_POSTALE_OBLIGATOIRE);

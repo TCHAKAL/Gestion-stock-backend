@@ -43,8 +43,8 @@ public class EntrepriseServiceImplementation implements EntrepriseService {
     public EntrepriseDto save(EntrepriseDto entrepriseDto) {
         List<String> errors = EntrepriseValidator.validate(entrepriseDto);
         if (!errors.isEmpty()) {
-            log.error("L'entreprise n'est pas valide {}" + entrepriseDto);
-            throw new InvalidEntityException("L'entreprise n'est pas valide", ErrorCode.ARTICLE_NOT_VALIDE, errors);
+            log.error("L'entreprise n'est pas valide " + entrepriseDto);
+            throw new InvalidEntityException("L'entreprise n'est pas valide", ErrorCode.ENTREPRISE_NOT_VALIDE, errors);
         }
         //Sauvgarder l'entreprise
         EntrepriseDto savedEntreprise = EntrepriseDto.fromEntity(entrepriseRepository.save(EntrepriseDto.toEntity(entrepriseDto)));
@@ -66,11 +66,13 @@ public class EntrepriseServiceImplementation implements EntrepriseService {
         return UtilisateurDto.builder()
                 .adresse(savedEntreprise.getAdresse())
                 .nom(savedEntreprise.getNom())
-                .nom(savedEntreprise.getNom())
+                .prenom(savedEntreprise.getNom())
+                .dateNaissance(Instant.parse("1993-12-01T18:35:24.00Z"))
                 .email(savedEntreprise.getEmail())
                 .motPasse(generateRandomMotPasse())
                 .dateNaissance(Instant.now())
                 .photo(savedEntreprise.getPhoto())
+                .entreprise(savedEntreprise)
                 .build();
     }
 

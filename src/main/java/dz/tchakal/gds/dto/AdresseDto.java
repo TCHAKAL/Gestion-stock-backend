@@ -34,6 +34,7 @@ public class AdresseDto {
                 .adresse2(adresse.getAdresse2())
                 .codePostale(adresse.getCodePostale())
                 .pays(adresse.getPays())
+                .ville(adresse.getVille())
                 .build();
     }
     public static Adresse toEntity(AdresseDto adresseDto){
@@ -46,6 +47,7 @@ public class AdresseDto {
                 .adresse2(adresseDto.getAdresse2())
                 .codePostale(adresseDto.getCodePostale())
                 .pays(adresseDto.getPays())
+                .ville(adresseDto.getVille())
                 .build();
     }
 }

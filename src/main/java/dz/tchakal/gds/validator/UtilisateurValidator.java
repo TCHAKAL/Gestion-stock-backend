@@ -29,11 +29,12 @@ public class UtilisateurValidator {
             }
             if (utilisateurDto.getDateNaissance() == null) {
                 errors.add(StaticUtil.DATE_NAISSANCE_OBLIGATOIRE);
-            } else {
-                if (getAge(Date.from(utilisateurDto.getDateNaissance())) < 6) {
-                    errors.add(StaticUtil.AGE_INVALIDE);
-                }
             }
+//            else {
+//                if (getAge(Date.from(utilisateurDto.getDateNaissance())) < 6) {
+//                    errors.add(StaticUtil.AGE_INVALIDE);
+//                }
+//            }
             errors.addAll(AdresseValidator.validate(utilisateurDto.getAdresse()));
         } else {
             errors.add(StaticUtil.ENTITE_NULL);

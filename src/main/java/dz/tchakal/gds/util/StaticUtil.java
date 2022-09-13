@@ -8,7 +8,7 @@ public interface StaticUtil {
     public static final String MOT_PASSE_OBLIGATOIRE ="Veuillez renseigner le mot de passe svp !" ;
     public static final String CODE_OBLIGATOIRE = "Veuillez renseigner le code svp !";
     public static final String DESIGNATION_OBLIGATOIRE = "Veuillez renseigner la désignation svp !";
-    public static final String DESCRIPTION_OBLIGATOIRE = "Veuillez renseigner la déscripttion svp !";
+    public static final String DESCRIPTION_OBLIGATOIRE = "Veuillez renseigner la description svp !";
     public static final String ADRESSE_OBLIGATOIRE = "Veuillez renseigner l'adresse svp !";
     public static final String ADRESSE1_OBLIGATOIRE = "Veuillez renseigner l'adresse 1 svp !";
     public static final String VILLE_OBLIGATOIRE = "Veuillez renseigner la ville svp !";
@@ -34,7 +34,7 @@ public interface StaticUtil {
     public static final String UTILISATEUR_OBLIGATOIRE = "Veuillez renseigner l'utilisateur' type svp !";
     public static final String AUCUN_ELEMENT_TROUVE = "Aucun élement trouvé !";
     String UTILISATEUR_NOT_FOUND = "L'utilisateur n'existe pas";
-    String AUTHORIZATION_HEADER = "authorization";
+    String AUTHORIZATION_HEADER = "Authorization";
     String LOGIN_MOT_PASSE_INCORRECT = "Le login et/ou le mot de passe sont incorrects";
     String CODE_FISCALE_OBLIGATOIRE ="Veuillez renseigner le code fiscal svp !" ;
 }

@@ -38,7 +38,8 @@ public class UtilisateurServiceImplementation implements UtilisateurService {
     public UtilisateurDto save(UtilisateurDto utilisateurDto) {
         List<String> errors = UtilisateurValidator.validate(utilisateurDto);
         if (!errors.isEmpty()) {
-            log.error("L'utilisateur est invalide {}" + utilisateurDto);
+            log.error("L'utilisateur est invalide" + utilisateurDto);
+            log.error(errors.toString());
             throw new InvalidEntityException("Le utilisateur est invalide", ErrorCode.CATEGORIE_NOT_VALIDE, errors);
         }
         if (userAlreadyExists(utilisateurDto.getEmail())) {
