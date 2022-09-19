@@ -2,15 +2,13 @@ package dz.tchakal.gds.configuration;
 
 import dz.tchakal.gds.service.authentication.ApplicationUserDetailService;
 import dz.tchakal.gds.util.JWTUtil;
-import dz.tchakal.gds.util.StaticUtil;
-import org.slf4j.MDC;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -29,38 +27,56 @@ public class ApplicationRequestFilter extends OncePerRequestFilter {//OncePerReq
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        final String authHeader = request.getHeader(StaticUtil.AUTHORIZATION_HEADER);
-        String email = null;
-        String jwt = null;
+
+        final String requestTokenHeader = request.getHeader("Authorization");
+        // je verifier si j'ai une authorisation
+        String username = null;
+        String jwtToken = null;
         String idEntreprise = null;
+        // JWT Token is in the form "Bearer token". Remove Bearer word and get
+        // only the Token
 
-        if (StringUtils.hasLength(authHeader) && authHeader.startsWith("Bearer ")) {
-            jwt = authHeader.substring(7);//Bearer  a 7 caratères
-            System.err.println(jwt);
-            email = jwtUtil.extractUsername(jwt);
-            System.err.println(email);
-            idEntreprise = jwtUtil.extractIdEntreprise(jwt);
-            System.err.println(idEntreprise);
-
+        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer")) {
+            jwtToken = requestTokenHeader.substring(7);
+            System.out.println("jwtToken" + jwtToken);
+            try {
+                username = jwtUtil.extractUsername(jwtToken);
+                System.out.println("username" + username);
+            } catch (IllegalArgumentException e) {
+                logger.warn("Unable to get JWT Token");
+            } catch (ExpiredJwtException e) {
+//           pour faire l'historique
+//                if(jwtHstoriqueConnexionService.existTokenByJwtValue(jwtToken) ){
+//                    jwtHstoriqueConnexionService.updateStateJwtHstoriqueConnexionByJwtValue(jwtToken);
+//                    logger.warn("Token has expired DATABASE");
+//                }
+                logger.warn("JWT Token has expired");
+                //response.
+            }
+        } else {
+            logger.warn("JWT Token does not begin with Bearer String");
         }
-        //Vérifier si jwt token est valide
-        if (StringUtils.hasLength(email) && SecurityContextHolder.getContext().getAuthentication() == null) {
-            //Récupérer l'utilisateur
-            UserDetails userDetails = this.userDetailService.loadUserByUsername(email);
-            System.err.println(" getUsername " + userDetails.getUsername());
-            System.err.println(" getPassword " + userDetails.getPassword());
-            System.err.println(" getAuthorities " + userDetails.getAuthorities());
-            if (jwtUtil.validateToken(jwt, userDetails)) {
-                System.err.println("validateToken");
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getAuthorities());
-                usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+        // Once we get the token validate it.
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
+            UserDetails userDetails = this.userDetailService.loadUserByUsername(username);
+
+            // if token is valid configure Spring Security to manually set
+            // authentication
+            if (jwtUtil.validateToken(jwtToken, userDetails)) {
+
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+                usernamePasswordAuthenticationToken
+                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                // After setting the Authentication in the context, we specify
+                // that the current user is authenticated. So it passes the
+                // Spring Security Configurations successfully.
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
-        //Stocker l'id de l'idEntreprise
-        MDC.put("idEntreprise", idEntreprise);
         filterChain.doFilter(request, response);
     }
-
 
 }
