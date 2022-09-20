@@ -13,7 +13,7 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur, Intege
 
 
     //@Query("select u from Utilisateur u where u.email= :email") si on veut utiliser JPQL
-    Optional<Utilisateur> findUtilisateurByEmail(String email);
+    Optional<Utilisateur> findByEmail(String email);
 
     @Query("select u from Utilisateur u where u.email= :email and u.motPasse=:motPasse")
     Optional<Utilisateur> findUtilisateurByEmailAndMotPasse(@Param("email") String email, @Param("motPasse") String motPasse);

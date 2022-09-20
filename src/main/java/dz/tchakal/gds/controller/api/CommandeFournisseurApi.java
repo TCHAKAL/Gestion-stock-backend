@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Api(StaticRoot.APP_ROOT + "commandeFournisseurs")
+@CrossOrigin(origins = "http://localhost:4200")
 public interface CommandeFournisseurApi {
 
     @PostMapping(value = StaticRoot.APP_ROOT + "/commandeFournisseurs/create", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)

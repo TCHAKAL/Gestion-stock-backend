@@ -15,6 +15,7 @@ import java.time.Instant;
 import java.util.List;
 
 @Api(StaticRoot.VENTE_ENDPOINT)
+@CrossOrigin(origins = "http://localhost:4200")
 public interface VenteApi {
 
     @PostMapping(value = StaticRoot.VENTE_ENDPOINT_SAVE,produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)

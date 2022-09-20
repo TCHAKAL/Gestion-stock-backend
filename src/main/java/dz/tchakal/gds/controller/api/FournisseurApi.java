@@ -1,7 +1,6 @@
 package dz.tchakal.gds.controller.api;
 
 import dz.tchakal.gds.dto.FournisseurDto;
-import dz.tchakal.gds.dto.EntrepriseDto;
 import dz.tchakal.gds.util.StaticRoot;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Api(StaticRoot.ENTREPRISE_ENDPOINT)
+@CrossOrigin(origins = "http://localhost:4200")
 public interface FournisseurApi {
 
     @PostMapping(value = StaticRoot.FOURNISSEUR_ENDPOINT_SAVE,produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)

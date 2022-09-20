@@ -31,8 +31,9 @@ public class UtilisateurController implements UtilisateurApi {
     }
 
     @Override
-    public UtilisateurDto findByEmailAndMotPasse(String email, String motPasse) {
-        return utilisateurService.findByEmailAndMotPasse(email,motPasse);
+    public UtilisateurDto findByEmail(String email) {
+        System.err.println("je suis la --");
+        return utilisateurService.findByEmail(email);
     }
 
     @Override

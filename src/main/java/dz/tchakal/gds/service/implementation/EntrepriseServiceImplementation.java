@@ -115,7 +115,7 @@ public class EntrepriseServiceImplementation implements EntrepriseService {
     @Override
     public void delete(Integer id) {
         if (id == null) {
-            log.error("Impossible de supprimer lentreprise, l'id est null");
+            log.error("Impossible de supprimer l'entreprise, l'id est null");
 
             return;
         }

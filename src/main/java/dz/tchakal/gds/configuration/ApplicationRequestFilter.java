@@ -27,16 +27,12 @@ public class ApplicationRequestFilter extends OncePerRequestFilter {//OncePerReq
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
-        final String requestTokenHeader = request.getHeader("Authorization");
+        String requestTokenHeader = request.getHeader("Authorization");
         // je verifier si j'ai une authorisation
         String username = null;
         String jwtToken = null;
         String idEntreprise = null;
-        // JWT Token is in the form "Bearer token". Remove Bearer word and get
-        // only the Token
-
-        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer")) {
+        if (requestTokenHeader != null && requestTokenHeader.contains("Bearer ")) {
             jwtToken = requestTokenHeader.substring(7);
             System.out.println("jwtToken" + jwtToken);
             try {
@@ -45,11 +41,6 @@ public class ApplicationRequestFilter extends OncePerRequestFilter {//OncePerReq
             } catch (IllegalArgumentException e) {
                 logger.warn("Unable to get JWT Token");
             } catch (ExpiredJwtException e) {
-//           pour faire l'historique
-//                if(jwtHstoriqueConnexionService.existTokenByJwtValue(jwtToken) ){
-//                    jwtHstoriqueConnexionService.updateStateJwtHstoriqueConnexionByJwtValue(jwtToken);
-//                    logger.warn("Token has expired DATABASE");
-//                }
                 logger.warn("JWT Token has expired");
                 //response.
             }
